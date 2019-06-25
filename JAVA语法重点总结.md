@@ -132,10 +132,32 @@ Java是大小写敏感的;
             if(0==j%2) break outloop; //如果是双数，结束外部循环
     }
 }`
-
-
-
-
+> ### Java数组：
+>> #### 声明数组：int[] a;
+>>> typeName(类型名)[] arrayName(数组名); 声明了一个数组变量;
+>>> 声明，不会创建数组; 数组必须声明类型，且之后数组只能存放该类型数据;
+>> #### 创建数组：new int[5];
+>>> new 数组类型[数组长度] ; 创建一个数组;
+<br /> 如果变量代表一个数组，比如a,我们把a叫做引用;
+<br /> 如果数组没有赋值，那么必须规定数组的长度，并且会使用默认值;数组的长度是不可变的;
+>> #### 数组通过下标来访问数据，下标从0开始;
+>> #### 数组.length属性用于访问一个数组的长度，超过长度的访问就会产生数组下标越界异常;
+>> #### 数组.分配空间与时赋值：
+>>> 分配空间与赋值分步进行: `int[] a = new int[5];a[0] = 100;` ;
+<br /> 分配空间，同时赋值: 
+<br /> `int[] a = new int[]{100,102,444,836,3236};` ;
+<br /> `int[] b = {100,102,444,836,3236};` ;
+>> #### 复制数组：System.arraycopy(arr1, 被复制的数组的起始位置, arr2, 新数组的内容存放起始位置, 复制长度)；数组类型要一致，并且arr2.length>arr1。length;
+>> #### 多维数组：
+>>> 声明：`int[][] a`;  分配空间：`new int[2][3]`; //有两个一维数组，每个一维数组的长度是3; 访问数组：`a[1][2] = 5`;  //可以直接访问一维数组，因为已经分配了空间;
+<br /> 分配空间，同时赋值: `int[][] c = new int[][]{ {1,2,4},{4,5},{6,7,8,9} }`;
+>> ### Arrays类：
+>>> copyOfRange 数组复制: `int[] b = Arrays.copyOfRange(a, 0, 3);`;
+<br /> toString(一维)、deepToString 数组字符串: `String content = Arrays.toString(a);//一维数组 String content = Arrays.deepToString(a);//多维数组`;
+<br /> sort 数组排序: `Arrays.sort(a);`;
+<br /> binarySearch 数组搜索: `int index = Arrays.binarySearch(a, 搜索的值);`;
+<br /> fill 数组填充: `Arrays.fill(a, 填充的内容);`; 
+<br /> .equals 判断是否相同: `Arrays.equals(a, b); //返回值是一个 boolean`; 比较得是数组的引用路径;
 
 
 

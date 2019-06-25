@@ -17,9 +17,9 @@ public class ScannerOperating {
     }
 
 	public static void main(String[] args) {
-		operatingText();
+		//operatingText();
 		Scanner scanner = new Scanner(System.in);
-		numr();
+		numrArray();
 		String operating = scanner.nextLine();
 		
 		if(operating.length() > 0){
@@ -249,7 +249,7 @@ public class ScannerOperating {
 		}
 	}
 	
-	// a + b = 8; a + c = 14; c - d = 6; b + d = 10; 求出a、b、c、d的值；
+	// a + b = 8; a + c = 14; c - d = 6; b + d = 10; 求出a、b、c、d的值;
 	private static void numr() {
 		int i = 0, a = 8, b = 14, c = 6, d = 10;
 		int a1 = a - i;
@@ -264,5 +264,104 @@ public class ScannerOperating {
 			System.out.println( "值为："+i+"；");
 		}
 		System.out.println( "值为："+i+"；"+a1+"；"+b1+"；"+d1+"；");
+	}
+	
+	private static void numrArray() {
+		int[][] aa = new int[5][5];
+		int[] a = new int[5];
+		for(int i=0; i<5; i++) {
+			int[] b = new int[5];
+			a[i] = (int) (Math.random() * 100);
+			for(int j=0; j<5; j++) b[j] = (int) (Math.random() * 100);
+	        aa[i] = b;
+		}
+         
+        //System.out.println("数组中的各个随机数是:");
+        //for (int i = 0; i < a.length; i++) System.out.println(a[i]);
+         
+        // 最小值
+        int min = 100;
+        for(int i = 0; i < a.length ; i++) {
+        	if(a[i]< min) min = a[i];
+        }
+        //System.out.println("本练习的目的是，找出最小的一个值:  "+ min);
+        
+        // 用增强型for循环找出最大值
+        int max = 0;
+        for(int each : a) {
+        	if(each > max) max = each;
+        }
+        System.out.println("本练习的目的是，用增强型for循环找出最大值:  "+ max);
+
+        // 数组反转
+        int len = a.length;
+        for(int i = 0; i < (len/2); i++) {
+        	a[i] = a[i] + a[len - i -1];
+        	a[len - i -1] = a[i] - a[len - i -1];
+        	a[i] = a[i] - a[len - i -1];
+        }
+        //System.out.println("本练习的目的是，反转数组:  "+ Arrays.toString(a));
+        
+        // 数组排序（选择法）
+        for(int i = 0; i < len; i++) {
+        	for(int j = 0; j < len; j++) {
+        		if(a[i] < a[j]) {
+        			// 不借助其他变量操作
+//        			a[i] = a[i] + a[j];
+//                	a[j] = a[i] - a[j];
+//                	a[i] = a[i] - a[j];
+        			// 创建一个中间交换量
+        			int temp = a[i];
+        			a[i] = a[j];
+        			a[j] = temp;
+        		}
+        	}
+        }
+       // System.out.println("本练习的目的是，选择排序数组:  "+ Arrays.toString(a));
+        
+        // 数组排序（冒泡法）
+        for (int j = 0; j < len; j++) {
+        	for(int i = 0; i < len-1; i++) {
+            	if(a[i] < a[i+1]) {
+            		int temp = a[i];
+           			a[i] = a[i+1];
+           			a[i+1] = temp;
+           		}
+            }
+        }
+        //System.out.println("本练习的目的是，冒泡排序数组:  "+ Arrays.toString(a));
+        
+        // 二维数组排序
+        int[][] bb = new int[5][5];
+        for(int i = 0; i < len-1; i++) {
+        	//bb[i] = Arrays.sort(aa[i]);
+        }
+        aa = bb;
+        //System.out.println("本练习的目的是，二维数组排序:  "+ Arrays.toString(aa));
+       //System.out.println("本练习的目的是，二维数组排序:  "+ Arrays.toString(bb));
+        
+        // 合并数组
+        int[] b = {6,66,666};
+        int[] c = new int[a.length+b.length];
+        System.arraycopy(a, 0, c, 0, a.length);
+        System.arraycopy(b, 0, c, 5, b.length);
+        a = c;
+        //System.out.println("本练习的目的是，数组合并:  "+ Arrays.toString(a));  
+        
+        // 二维数组最大值；
+        int max1 = 0;
+        String coordinate = "";
+        for(int i = 0; i<aa.length; i++) {
+        	for(int j = 0; j<aa[i].length; j++) {
+        		if(max1 < aa[i][j]) {
+        			max1 = aa[i][j];
+        			coordinate = "["+i+"]"+"["+j+"]";
+        		}
+        	}
+        }
+        
+        System.out.println("本练习的目的是，二维数组是:  "+ Arrays.deepToString(aa));  
+        
+        System.out.println("本练习的目的是，二维数组最大值:  "+ max1+ " ; 坐标是"+ coordinate);
 	}
 }
