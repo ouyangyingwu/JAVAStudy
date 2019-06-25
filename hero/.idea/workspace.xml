@@ -2,7 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7e69a5bf-25d8-4009-87b6-5a9c04f85b5d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../JAVA语法重点总结.md" beforeDir="false" afterPath="$PROJECT_DIR$/../JAVA语法重点总结.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/index.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/java/helloWorld/HelloWorld.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/java/helloWorld/HelloWorld.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/java/helloWorld/MyClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/java/helloWorld/MyClass.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/java/helloWorld/Parent.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/java/helloWorld/Parent.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/java/leagueOfLegends/Item.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/java/leagueOfLegends/Item.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/java/leagueOfLegends/ScannerOperating.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/java/leagueOfLegends/ScannerOperating.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/webapp/img/Java关键字表1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/webapp/img/Java关键字表2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/webapp/img/Java字符串常量池.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/webapp/img/Java字符串常量池示意图.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/webapp/img/Java数据类型转换规则.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/webapp/img/Java运算符优先级.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/leagueOfLegends/ScannerOperating.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/leagueOfLegends/ScannerOperating.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/classes/" />
     <ignored path="$PROJECT_DIR$/bin/" />
@@ -21,28 +35,19 @@
         <entry file="file://$PROJECT_DIR$/../JAVA语法重点总结.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="FIRST">
-              <first_editor relative-caret-position="2709">
-                <caret line="129" column="34" selection-start-line="129" selection-start-column="34" selection-end-line="129" selection-end-column="34" />
+              <first_editor relative-caret-position="742">
+                <caret line="135" column="7" selection-start-line="135" selection-start-column="7" selection-end-line="135" selection-end-column="7" />
               </first_editor>
               <second_editor />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../.git/config">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="6" column="21" lean-forward="true" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$USER_HOME$/.ssh/id_rsa.pub">
+        <entry file="file://$PROJECT_DIR$/../.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="8" selection-end-line="1" />
+            <state relative-caret-position="21">
+              <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
             </state>
           </provider>
         </entry>
@@ -50,8 +55,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/leagueOfLegends/ScannerOperating.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="680">
-              <caret line="231" column="5" lean-forward="true" selection-start-line="231" selection-start-column="5" selection-end-line="231" selection-end-column="5" />
+            <state relative-caret-position="743">
+              <caret line="266" column="5" selection-start-line="266" selection-start-column="5" selection-end-line="266" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -62,21 +67,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/util/ArrayMethod.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="63">
-              <caret line="3" selection-start-line="3" selection-end-line="3" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://$PROJECT_DIR$/../jdk_tmall/src.zip!/java/util/ArrayList.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1680">
-              <caret line="105" column="23" selection-start-line="105" selection-start-column="23" selection-end-line="105" selection-end-column="23" />
-              <folding>
-                <element signature="e#6252#6253#0" expanded="true" />
-                <element signature="e#6320#6321#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="378">
+              <caret line="18" column="38" selection-start-line="18" selection-start-column="38" selection-end-line="18" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -133,10 +125,11 @@
         <option value="$PROJECT_DIR$/src/main/java/helloWorld/index.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/web-info/index.jsp" />
         <option value="$PROJECT_DIR$/src/main/index.jsp" />
-        <option value="$PROJECT_DIR$/../JAVA语法重点总结.md" />
         <option value="$PROJECT_DIR$/src/main/java/util/ArrayMethod.java" />
         <option value="$PROJECT_DIR$/src/main/java/leagueOfLegends/ScannerOperating.java" />
         <option value="$PROJECT_DIR$/../.git/config" />
+        <option value="$PROJECT_DIR$/../JAVA语法重点总结.md" />
+        <option value="$PROJECT_DIR$/../.gitignore" />
       </list>
     </option>
   </component>
@@ -159,7 +152,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -167,10 +159,16 @@
               <item name="javaHero" type="b2602c69:ProjectViewProjectNode" />
               <item name="hero" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="javaHero" type="b2602c69:ProjectViewProjectNode" />
+              <item name="hero" type="462c0819:PsiDirectoryNode" />
+              <item name=".idea" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -178,7 +176,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -295,17 +293,17 @@
       <workItem from="1561110238087" duration="2828000" />
       <workItem from="1561346322415" duration="8068000" />
       <workItem from="1561424591970" duration="1555000" />
+      <workItem from="1561426928047" duration="2773000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="52475000" />
+    <option name="totallyTimeSpent" value="55248000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="-8" width="1936" height="1056" extended-state="7" />
-    <editor active="true" />
+    <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26332623" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26599148" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -408,34 +406,6 @@
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/../README.md" />
-    <entry file="file://$PROJECT_DIR$/../JAVA语法重点总结.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="FIRST">
-          <first_editor relative-caret-position="2709">
-            <caret line="129" column="34" selection-start-line="129" selection-start-column="34" selection-end-line="129" selection-end-column="34" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/util/ArrayMethod.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="3" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/../jdk_tmall/src.zip!/java/util/ArrayList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1680">
-          <caret line="105" column="23" selection-start-line="105" selection-start-column="23" selection-end-line="105" selection-end-column="23" />
-          <folding>
-            <element signature="e#6252#6253#0" expanded="true" />
-            <element signature="e#6320#6321#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/leagueOfLegends/Hero.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="147">
@@ -450,27 +420,65 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/leagueOfLegends/ScannerOperating.java">
+    <entry file="file://$USER_HOME$/.ssh/id_rsa.pub">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="231" column="5" lean-forward="true" selection-start-line="231" selection-start-column="5" selection-end-line="231" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state>
+          <caret column="8" selection-end-line="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../.git/config">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
-          <caret line="6" column="21" lean-forward="true" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
+          <caret line="6" column="21" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/.ssh/id_rsa.pub">
+    <entry file="jar://$PROJECT_DIR$/../jdk_tmall/src.zip!/java/util/ArrayList.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="8" selection-end-line="1" />
+        <state relative-caret-position="806">
+          <caret line="105" column="23" selection-start-line="105" selection-start-column="23" selection-end-line="105" selection-end-column="23" />
+          <folding>
+            <element signature="e#6252#6253#0" expanded="true" />
+            <element signature="e#6320#6321#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/util/ArrayMethod.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="18" column="38" selection-start-line="18" selection-start-column="38" selection-end-line="18" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/leagueOfLegends/ScannerOperating.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="743">
+          <caret line="266" column="5" selection-start-line="266" selection-start-column="5" selection-end-line="266" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.project">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../JAVA语法重点总结.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="742">
+            <caret line="135" column="7" selection-start-line="135" selection-start-column="7" selection-end-line="135" selection-end-column="7" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="21">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
         </state>
       </provider>
     </entry>

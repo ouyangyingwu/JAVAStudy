@@ -19,7 +19,7 @@ public class ScannerOperating {
 	public static void main(String[] args) {
 		operatingText();
 		Scanner scanner = new Scanner(System.in);
-		goldPoint();
+		numr();
 		String operating = scanner.nextLine();
 		
 		if(operating.length() > 0){
@@ -229,5 +229,40 @@ public class ScannerOperating {
 		
 		System.out.println( "分子为： "+minI+"， 分母为："+minJ+" 的比值为："+(float)minI/minJ+" 最接近0.618；");
 		System.out.println( "分子为： "+ii+"， 分母为："+jj+" 的比值为："+(float)ii/jj+" 最接近0.618；");
+	}
+	
+	// 1. 一定是3位数
+	// 2. 每一位的立方，加起来恰好是这个数本身，比如153=1*1*1+5*5*5+3*3*3
+	// 寻找所有的水仙花数
+	private static void daffodilNumber() {
+		int num = 0;
+		for(int i = 100; i <= 999; i++) {
+			int hundred = i/100;
+			int ten = (i-hundred*100)/10;
+			int one = i - hundred*100 - ten*10;
+			
+			int daffodil = one*one*one + ten*ten*ten + hundred*hundred*hundred;
+			if(i == daffodil) {
+				num++;
+				System.out.println( "这是第 "+num+" 个水仙花数，值为："+i+"；");
+			}
+		}
+	}
+	
+	// a + b = 8; a + c = 14; c - d = 6; b + d = 10; 求出a、b、c、d的值；
+	private static void numr() {
+		int i = 0, a = 8, b = 14, c = 6, d = 10;
+		int a1 = a - i;
+        int b1 = b - a1;
+        int d1 = b1 - c;
+		
+		while(! ( a1 + i == a && a1 + b1 == b && b1 - d1 == c && i + d1 == d)) {
+			i++;
+			a1 = a - i;
+	        b1 = b - a1;
+	        d1 = b1 - c;
+			System.out.println( "值为："+i+"；");
+		}
+		System.out.println( "值为："+i+"；"+a1+"；"+b1+"；"+d1+"；");
 	}
 }
