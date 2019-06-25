@@ -1,0 +1,187 @@
+# **JAVA学习笔记**
+
+
+## 下载安装：
+>下载地址:https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+配置环境变量：http://www.runoob.com/java/java-environment-setup.html#linux-install（注意在windows10中不能使用JAVA_HONE，要用绝对路径;详情参考： https://www.cnblogs.com/weedboy/p/6920378.html）
+当java、javac都能运行时证明安装成功;
+
+## 编译运行：
+>(https://www.cnblogs.com/wangpei/p/7084341.html)
+javac <需要编译的文件> ：编译文件
+javac *.java ：编译当前目录下的所有的文件文件
+javac -d <新路径> <需要编译的文件> ：编译后的文件保存至新的文件夹;
+java <编译后的文件名> <参数> ：运行class文件，可以在文件明后面添加参数;
+java -cp <新路径> <文件名> ：运行非当前目录下的文件;
+
+## 编码规范：
+>类的首字母大写，java没有强制规定，为了增加规范性、可读性而做的一种约定;
+Java是大小写敏感的;
+类的名称需要与文件名完全一致;对于所有的类来说，类名的首字母应该大写。如果类名由若干单词组成，那么每个单词的首字母应该大写;
+所有的Java 程序由public static void main(String []args)方法开始执行。
+
+## 基本语法：（http://www.runoob.com/java/java-basic-syntax.html）
+> ### System.out.println("") 向控制台输出数据;
+> ### Java表达式与块：
+>> 以;结尾的一段代码，即为一个表达式,`;`也是一个完整的表达式;
+<br /> 从{ 开始 到对应的} 结束，即一个块;
+>>> 静态代码块 随类加载有且只进行一次,作用:给类进行初始化,表达形式:static{执行语句;};
+> ### Java标识符：
+>>所有的标识符都应该以字母（A-Z或者a-z）,美元符（$）、或者下划线（_）开始;
+<br /> 首字符之后可以是字母（A-Z或者a-z）,美元符（$）、下划线（_）或数字的任何字符组合;
+<br /> 关键字不能用作标识符,但可以包含关键字;标识符是大小写敏感的;
+> ### Java变量以及基本变量类型:
+>>Java中有八种基本类型，都是Java语言预先定义好的，并且是关键字。 
+这八种基本类型分别是: 
+>> #### 整型 （4种：byte, short, int, long）;
+>>>![Java](hero/src/main/webapp/img/Java整型数据类型.png)
+>>> 运算时要防止溢出发生,int a = 2147483647; //int类型整数的上限 System.out.println("a=" + (a+1)); //输出结果： a=-2147483648 溢出，结果错误。
+>> #### 浮点型（2种）:
+>>> float 长度为32位(加上点有效数字8位，即小数点后第七位将产生四舍五入;定义时要声明在赋值后面加f或者（float）转换);
+>>> double 长度为64位 (有效数字16位;默认类型;可以以d或者D结尾);
+<br /> 浮点数还可以用E或者e表示（科学计数法）e2表示10的二次方，即100;列:1.234e2 = 1.234x100;
+>>#### 布尔型（1种）;boolean;
+>>#### 字符型 （char）用于存放一个字符，值用单引号'表示，超过一个字符会编译错误;
+>> #### String类型
+>>>这不是基本类型而是是一个类，即JAVA中所有见到的字符串都是对象;
+>> #### String类型扩展：
+>>>>##### 1.String和char的区别：
+>>>>>**a**.char单引号标记且只能存一个字符，string双引号标记可寻多个字符;
+  **b**.char在Java中是16位的，因为Java用的是Unicode;
+>>>>> ###### **c**. String类型特征：
+>>>>>>![Java](hero/src/main/webapp/img/Java字符串常量池.png)<br />
+>>>>>>![Java](hero/src/main/webapp/img/Java字符串常量池示意图.png)<br />
+**C1**.String类型比较值最好用 `str1.equals(str2)`这样比较的是值（引用的数据类型对其进行了重写,用于比较值,无法作用与非对象）,而`==`比较的是指向堆区的地址（只相对于引用(例如String、Integer等)类型,对于基本类型还是比较值）;<br />
+>>>>>> **C2**.String类是final类，也即意味着String类不能被继承，并且它的成员方法都默认为final方法。**String对象一旦被创建就是固定不变的了，对String对象的任何改变都不影响到原对象，相关的任何change操作都会生成新的对象;**
+<br /> **C3**.每当我们创建字符串常量时，JVM会首先检查字符串常量池，如果该字符串已经存在常量池中，那么就直接返回常量池中的实例引用。如果字符串不存在常量池中，就会实例化该字符串并且将其放到常量池中。**由于String字符串的不可变性我们可以十分肯定常量池中一定不存在两个相同的字符串**;
+<br /> **C4**.`str = new String("kvill"); str = str.intern()`; //把常量池中"kvill"的引用赋给str;
+>>>>##### 2.类型转换:(地址https://www.cnblogs.com/rrttp/p/7922202.html);
+>>>>>>###### 数据精度转换:
+>>>>>>> 自动转换就是直接复值;强制转换则需要加上(转换后的类型),强制转化如果值超过转化后的范围那么会有数据损失(内容溢出，超过部分的数据被丢弃);
+<br /> short a = 1;short b = 2;short c = a+b会报错，因为计算后默认是int,需要转化后才能赋值;
+<br /> char 类型在转换时首先会转换位 int 在进行其他操作;
+<br /> 多种基本类型计算时首先会转换为精度最高的类型，然后在进行计算;
+<br /> double类型转int型时舍弃小数部分;但是整数部分大于127小数部分为大于或等于14位9的数时，转换为整数时会加一;
+>>>>>>> ![Java](hero/src/main/webapp/img/Java基本类型转换规则.png)<br />
+>>>>>>###### String转换为char
+>>>>>>> **a**. 使用String.charAt(index)（返回值为char）可以得到String中某一指定位置的char。  列："JAVA".charAt(0);返回值为char类型，值为J;
+<br /> **b**. 使用String.toCharArray()（返回值为char[]）可以得到将包含整个String的char数组。 列："JAVA".toCharArray();返回值为char[]类型;
+>>>>>>###### char转换为String 将char转换为String大致有6种方法。总结如下：
+>>>>>>> a. String s = String.valueOf('c'); //效率最高的方法
+<br />b. String s = String.valueOf(new char[]{'c'}); //将一个char数组转换成String
+<br />c. String s = Character.toString('c');
+<br />// Character.toString(char)方法实际上直接返回String.valueOf(char)
+<br />d. String s = new Character('c').toString();
+<br />e. String s = "" + 'c';
+<br />// 虽然这个方法很简单，但这是效率最低的方法
+<br />// Java中的String Object的值实际上是不可变的，是一个final的变量。
+<br />// 所以我们每次对String做出任何改变，都是初始化了一个全新的String Object并将原来的变量指向了这个新String。
+<br />// 而Java对使用+运算符处理String相加进行了方法重载。
+<br />// 字符串直接相加连接实际上调用了如下方法：
+<br />// new StringBuilder().a
+<br />f. String s = new String(new char[]{'c'});
+> ### Java操作符：
+>> #### 算数操作符:`+、-、*、/、%、++、--、=`;
+>> #### 关系操作符:`==、>、>=、<、<=、!=`;
+>> #### 逻辑运算符:`&&、||、!`; 返回值都是boolean类型;
+>> #### 位运算符：`&、|、^、~、<<、>>、>>>`; 位运算即二进制运算,Integer.toBinaryString(i)可以得到一个整数的二进制值;<br />
+>>> **位与&**: 二进制状态的两个数相同位置的数进行 与 比较;例:5的二进制是101,6的二进制是110,那么 5&6 = 4(100);全真才为真;
+<br /> **位或!**: 二进制状态的两个数相同位置的数进行 或 比较;例:5的二进制是101,6的二进制是110,那么 5!6 = 7(111);有真就为真;
+<br /> **异或^**: 二进制状态的两个数相同位置的数进行 异或 比较;例:5的二进制是101,6的二进制是110,那么 5^6 = 3(011);不同才为真;
+<br /> **取非~**: 二进制状态的一个数进行 取非 ;例:5的二进制是101,那么 ~5 = -6(11111010,int型长度共32位,前面可用1填充);
+<br /> **左移<<**: 二进制状态的一个数进行 左移 ;例:6的二进制是110,那么 6>>1 = 12(1100);
+<br /> **右移>>**: 二进制状态的一个数进行 右移 ;例:6的二进制是110,那么 6<<1 = 3(11);
+<br /> **无符号右移>>>**: 当运算的数字为正时等效于 >>,否则右移后高位补0;例:-20的二进制为11111111111111111111111111101100,-20>>2=1073741819(00111111111111111111111111111011);
+<br /> int i = 1;boolean b = !(i++ == 3) ^ (i++ ==2) && (i++==3);System.out.println(b);System.out.println(i); 输出:false,3;
+>> #### 赋值操作符:`+=、-=、*=、/=、%=、&=、!=、^=、<<=、>>=、>>>=`;
+>> #### 三元操作符:`?:`;
+>>> ![Java](hero/src/main/webapp/img/Java运算符优先级.png) 
+> ### Java修饰符:
+>> #### 访问控制修饰符 : default(friendly), public , protected, private
+>>> default(friendly)：默认权限也称作包（package）访问权限，即只能在同一个包下访问;使用对象：类、接口、变量、方法;
+>>> public：对所有类可见。使用对象：类、接口、变量、方法;
+>>> private：在同一类内可见;使用对象：变量、方法。 注意：不能修饰类（外部类）;
+>>> protected：对同一包内的类和所有子类可见;使用对象：变量、方法。注意：不能修饰类（外部类）;
+>>> ![Java](hero/src/main/webapp/img/Java访问修饰符权限.png) 
+>> #### 非访问控制修饰符 : static, final, abstract, synchronized, volatile
+>>> ##### static:静态(属性、方法)
+>>>> static变量: 用来声明独立于对象的静态变量;无论一个类实例化多少对象，它的静态变量只有一份拷贝;静态变量也被称为类变量。局部变量不能被声明为 static 变量;
+<br /> static方法: 用来声明独立于对象的静态方法。静态方法不能使用类的非静态变量。静态方法从参数列表得到数据，然后计算这些数据;
+>>> ##### final:最后(属性、方法、类)
+>>>> final变量: 可以也只可以赋值一次，变量一旦赋值后，不能被重新赋值;
+<br /> final方法: 可以被子类继承，但是不能被子类修改;
+<br /> final变量: 类不能被继承;
+>>> ##### abstract :抽象(方法、类)
+>>>> abstract方法: 是一种没有任何实现的方法，该方法的的具体实现由子类提供;任何继承抽象类的子类必须实现父类的所有抽象方法，除非该子类也是抽象类。如果一个类包含若干个抽象方法，那么该类必须声明为抽象类。抽象类可以不包含抽象方法。抽象方法的声明以分号结尾，例如：public abstract sample();
+<br /> abstract变量: 抽象类不能用来实例化对象，声明抽象类的唯一目的是为了将来对该类进行扩充;如果一个类包含抽象方法，那么该类一定要声明为抽象类，否则将出现编译错误;抽象类可以包含抽象方法和非抽象方法;
+<be /> abstract类不能喝final同时修饰，abstract方法不能与final或static同时修饰;
+>>> ##### synchronized、volatile:
+>>>> synchronized方法: 同一时间只能被一个线程访问。synchronized 修饰符可以应用于四个访问修饰符;
+>>>> volatile变量: 每次被线程访问时，都强制从共享内存中重新读取该成员变量的值; 当成员变量发生变化时，会强制线程将变化值回写到共享内存;
+> ### Java流程控制：
+>> if 内部如果只有一个表达式可以不用写括弧，看上去会简约一些;
+<br /> switch 中 case 可以堆叠(没写 break 时继续执行下一个case的内容直到遇到break为止);
+<br /> while 与 do while: do while 先运行再判断，所以无论如何都会运行一次; while 先判断再运行;
+<br /> for 表达式一(做n次循环,第二个表达式可以省略为无限循环): `for(int i = 0; i < n; i++){}`; 表达式二(做数组遍历): `for(int x : number){}`;
+<br /> continue: 结束本次循环进入下一循环;
+<br /> break: 跳出循环; 跳出多重循环: 
+<br /> outloop这个标示是可以自定义的比如outloop1,ol2,out5
+<br /> `outloop:for (int i = 0; i < 10; i++) {
+    for (int j = 0; j < 10; j++) {
+        System.out.println(i+":"+j);
+            if(0==j%2) break outloop; //如果是双数，结束外部循环
+    }
+}`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+> ### Scanner类:(获取用户输入的的内容)
+>> `import java.util.Scanner;` 导入类;
+<br /> 创建对象: Scanner scanner = new Scanner(System.in);
+<br /> 读取整数: int i = scanner.nextInt();
+<br /> 读取浮点数: float f = scanner.nextFloat();
+<br /> 读取字符串: String s = Scanner.nextLine();
+<br /> 关闭Scanner类: Scanner.close(); Scanner对象只能有一个（可设为成员变量）;只能关闭一次（如果非得关闭的话）;
+<br /> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
