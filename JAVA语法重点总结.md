@@ -97,16 +97,16 @@ Java是大小写敏感的;
 >> #### 三元操作符:`?:`;
 >>> ![Java](hero/src/main/webapp/img/Java运算符优先级.png) 
 > ### Java修饰符:
->> #### 访问控制修饰符 : default(friendly), public , protected, private
->>> default(friendly)：默认权限也称作包（package）访问权限，即只能在同一个包下访问;使用对象：类、接口、变量、方法;
->>> public：对所有类可见。使用对象：类、接口、变量、方法;
->>> private：在同一类内可见;使用对象：变量、方法。 注意：不能修饰类（外部类）;
->>> protected：对同一包内的类和所有子类可见;使用对象：变量、方法。注意：不能修饰类（外部类）;
->>> ![Java](hero/src/main/webapp/img/Java访问修饰符权限.png) 
+>> #### 访问控制修饰符 : default(friendly), public , protected, private(作用范围最小原则)
+>>> default(friendly/package)：默认权限也称作包（package）访问权限，即只能在同一个包下访问;使用对象：类、接口、变量、方法;
+<br /> public：对所有类可见。使用对象：类、接口、变量、方法;
+<br /> private：在同一类内可见;使用对象：变量、方法。 注意：不能修饰类（外部类）;
+<br /> protected：对同一包内的类和所有子类可见;使用对象：变量、方法。注意：不能修饰类（外部类）;
+<br /> ![Java](hero/src/main/webapp/img/Java访问修饰符权限.png) 
 >> #### 非访问控制修饰符 : static, final, abstract, synchronized, volatile
 >>> ##### static:静态(属性、方法)
 >>>> static变量: 用来声明独立于对象的静态变量;无论一个类实例化多少对象，它的静态变量只有一份拷贝;静态变量也被称为类变量。局部变量不能被声明为 static 变量;
-<br /> static方法: 用来声明独立于对象的静态方法。静态方法不能使用类的非静态变量。静态方法从参数列表得到数据，然后计算这些数据;
+<br /> static方法: 用来声明独立于对象的静态方法。静态方法不能使用类的非静态变量。静态方法从参数列表得到数据，然后计算这些数据;不需要对象的存在，直接就访问;
 >>> ##### final:最后(属性、方法、类)
 >>>> final变量: 可以也只可以赋值一次，变量一旦赋值后，不能被重新赋值;
 <br /> final方法: 可以被子类继承，但是不能被子类修改;
@@ -117,7 +117,7 @@ Java是大小写敏感的;
 <be /> abstract类不能喝final同时修饰，abstract方法不能与final或static同时修饰;
 >>> ##### synchronized、volatile:
 >>>> synchronized方法: 同一时间只能被一个线程访问。synchronized 修饰符可以应用于四个访问修饰符;
->>>> volatile变量: 每次被线程访问时，都强制从共享内存中重新读取该成员变量的值; 当成员变量发生变化时，会强制线程将变化值回写到共享内存;
+<br /> volatile变量: 每次被线程访问时，都强制从共享内存中重新读取该成员变量的值; 当成员变量发生变化时，会强制线程将变化值回写到共享内存;
 > ### Java流程控制：
 >> if 内部如果只有一个表达式可以不用写括弧，看上去会简约一些;
 <br /> switch 中 case 可以堆叠(没写 break 时继续执行下一个case的内容直到遇到break为止);
@@ -135,7 +135,7 @@ Java是大小写敏感的;
 > ### Java数组：
 >> #### 声明数组：int[] a;
 >>> typeName(类型名)[] arrayName(数组名); 声明了一个数组变量;
->>> 声明，不会创建数组; 数组必须声明类型，且之后数组只能存放该类型数据;
+<br /> 声明，不会创建数组; 数组必须声明类型，且之后数组只能存放该类型数据;
 >> #### 创建数组：new int[5];
 >>> new 数组类型[数组长度] ; 创建一个数组;
 <br /> 如果变量代表一个数组，比如a,我们把a叫做引用;
@@ -155,9 +155,26 @@ Java是大小写敏感的;
 >>> copyOfRange 数组复制: `int[] b = Arrays.copyOfRange(a, 0, 3);`;
 <br /> toString(一维)、deepToString 数组字符串: `String content = Arrays.toString(a);//一维数组 String content = Arrays.deepToString(a);//多维数组`;
 <br /> sort 数组排序: `Arrays.sort(a);`;
-<br /> binarySearch 数组搜索: `int index = Arrays.binarySearch(a, 搜索的值);`;
+<br /> binarySearch 数组搜索: `int index = Arrays.binarySearch(a, 搜索的值);`; //首先需要对数组进行排序
 <br /> fill 数组填充: `Arrays.fill(a, 填充的内容);`; 
 <br /> .equals 判断是否相同: `Arrays.equals(a, b); //返回值是一个 boolean`; 比较得是数组的引用路径;
+> ### Java类与对象：
+>> Java类：类是一个模板，它描述一类对象的行为和状态;
+<br /> Java对象：拥有类的特征的实体;
+>> #### 创建(实例)对象： 
+>>> 创建：`new Hero();`;仅仅是创建了一个对象，没有办法访问它为了访问这个对象;
+<br /> 指向：`Hero h =`; 引用代表创建的对象“代表” 在面向对象里，又叫做“指向”;
+<br /> 多个引用，一个对象: `Hero h1 = new Hero();Hero h2 = h1;`  //h2指向h1所指向的对象
+<br /> 一个引用，多个对象: `Hero h1 = new Hero();h1 = new Hero();`  //对象1，就没有任何引用指向了那么该对象就变得没有意义。
+>> #### 类的继承（extends）：
+>> #### 类方法
+>>> 参数名和属性名一样时，在方法体中，只能访问到参数，所以在方法中参数加上 `this.name`用来表示属性(this代表当前对象);
+<br /> 方法重载：同一个类里面方法名是一样的，但是参数类型(或者数量)不一样的方法，在调用方法时会根据参数自动调用对应的方法;
+<br /> 可变数量参数： `public void attack(Hero... heros) { for (int i = 0; i < heros.length; i++) {}}`;
+<br /> 构造方法： 与类名一致的方法（大小写，无返回值，实例化对象时调用）, 如果不写会有一个默认的构造方法写了就不会有,构造方法也支持重载,如果要在一个构造方法中，调用另一个构造方法，可以使用this()(必须写在第一行);
+<br /> 构造代码块：
+
+
 
 
 
