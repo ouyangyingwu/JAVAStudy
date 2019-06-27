@@ -8,6 +8,13 @@ public class HelloWorld {
      * 它将打印字符串 Hello World
      */
 	//static String name;
+	private static HelloWorld instance  = new HelloWorld();
+	
+	private HelloWorld() {	};
+	
+	public static HelloWorld getInstance() {
+		return instance;
+	}
 	
     public static void main(String[] args) {
     	Parent obj = new Parent("dandan");
