@@ -19,7 +19,41 @@ public class Hero {
 	int demolitionTower = 0;	//推塔数量
 	int attackSpeed;					//攻速
 	String wordAfterKill;			//击杀后的话
-	String wordAfterKilled;		//死亡后的话
+	private static String wordAfterKilled = "死了死了";		//死亡后的话
+	/*
+	 * 	-------战斗成绩内部类------
+	 * 	非静态内部类，等同于类一个特殊特殊成员
+	 * 	只有一个外部类对象存在的时候，才有意义
+	*/
+	class BattleScore {
+        int kill;
+        int die;
+        int assit;
+ 
+        public void legendary() {
+            if (kill >= 8)
+                System.out.println(name + "超神！");
+            else
+                System.out.println(name + "尚未超神！");
+        }
+    }
+	/*
+	 * 	-------敌方的水晶静态内部类------
+	 * 	静态内部类，需要用 static 修饰
+	 * 	静态类只能访问外部类的静态属性方法
+	*/
+    static class EnemyCrystal{
+        int hp=5000;
+         
+        //如果水晶的血量为0，则宣布胜利
+        public void checkIfVictory(){
+            if(hp==0){
+                Hero.battleWin();
+                //静态内部类不能直接访问外部类的对象属性
+                System.out.println(wordAfterKilled + " 静态内部类的方法");
+            }
+        }
+    }
 
 	public static void main(String[] args) {
 //        Hero garen =  new Hero("盖伦", 615f, 14f, 300);
@@ -64,6 +98,32 @@ public class Hero {
         garen.killChange(sj);
         garen.killChange(yj);
         garen.killChange(fj);
+		/*
+		 * 	实例化内部类
+		 * 	必须先实例化外部类
+		*/
+        BattleScore score = garen.new BattleScore();
+        score.legendary();
+        /*
+		 * 	实例化静态内部类
+		*/
+        Hero.EnemyCrystal crystal = new Hero.EnemyCrystal();
+        crystal.hp = 0;
+        crystal.checkIfVictory();
+        /*
+		 *	局部(本地)内部类
+		*/
+        class SomeHero extends Hero {
+        	//构造函数重载
+        	public SomeHero(String name,float hp) {
+        		super(name , hp);
+        	}
+            public void attack() {
+                System.out.println( name+ " 新的进攻手段");
+            }
+        }
+        SomeHero h  =new SomeHero("诡术妖姬", 560);
+        h.attack();
     }
 	
 	/*
@@ -74,6 +134,10 @@ public class Hero {
 	*/
 	public void useItem(Item i) {
 		i.effect();
+    }
+	
+	private static void battleWin(){
+        System.out.println("battle win");
     }
 	
     //复活

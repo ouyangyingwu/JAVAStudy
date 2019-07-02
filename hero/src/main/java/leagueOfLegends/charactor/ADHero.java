@@ -5,7 +5,10 @@ import main.java.leagueOfLegends.charactor.heroInterface.AP;
 import main.java.leagueOfLegends.charactor.heroInterface.Mortal;
 import main.java.leagueOfLegends.property.*;
 
-// 物理英雄类
+/*
+ * 	物理英雄类
+ * 	匿名内部类：匿名内部类并不在接口或抽象类中而是在可实例化的类中
+*/
 public class ADHero extends Hero implements AD,AP,Mortal {
 	int attackPower;
 	
@@ -26,6 +29,21 @@ public class ADHero extends Hero implements AD,AP,Mortal {
         BloodPotion hp =new BloodPotion();
         bh.useItem(hp);
         System.out.println(hp.toString());
+		/*
+		 * 	匿名内部类，源自AD接口
+		*/
+        AD a = new AD(){
+        	@Override
+        	public void physicAttack(ADAPHero temp) {
+        		System.out.println("接口的匿名内部类.");
+        	}
+        };
+        a.physicAttack(null);
+		/*
+		 * 调用AD接口的默认(default修饰的)方法
+		*/
+        bh.haha();
+        bh.attack();
     }
 	
 	// 重写useItem，并在其中调用父类的userItem方法
@@ -58,7 +76,10 @@ public class ADHero extends Hero implements AD,AP,Mortal {
     }
     
 	/*
-	 * 实现接口的方法
+	 * 	实现接口的方法
+	 * 	@Override 是伪代码，可以不写，写上有如下好处: 
+	 * 	1、可以当注释用,方便阅读；
+	 *	2、编译器可以给你验证@Override下面的方法名是否是你父类中所有的，如果没有则报错。
 	 */
     @Override
 	public void physicAttack(ADAPHero temp) {

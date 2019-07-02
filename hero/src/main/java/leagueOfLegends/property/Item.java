@@ -1,28 +1,19 @@
 package main.java.leagueOfLegends.property;
 
-import main.java.leagueOfLegends.property.itemInterface.*;
-
-public class Item extends  Disposable {
+/*
+ * 	物品类、抽象类
+ * 
+*/
+public abstract class Item {
 	public String name;
 	public int price;
+	protected boolean consumables = true;	//	消耗品
 	
 	Item(){
 		System.out.println( "这是Item的构造方法"  );
 	}
 	
 	public static void main(String[] args) {
-		Item xp =  new Item();
-		xp.name = "血瓶";
-		xp.price = 50;
-		
-		Item cx =  new Item();
-		cx.name = "草鞋";
-		cx.price = 300;
-		
-		Item cj =  new Item();
-		cj.name = "长剑";
-		cj.price = 350;
-		
 		System.out.println( "这是Item的main方法"  );
     }
 	
@@ -31,12 +22,12 @@ public class Item extends  Disposable {
     }
 
 	/*
-	 * 	实现 Disposable 的抽象方法
+	 * 	设计的抽象方法
+	 * 	因为有抽象方法，类必须改为抽象类
 	*/
-	@Override
-	public boolean disposable(Object obj) {
-		// TODO Auto-generated method stub
-		obj = null;
-		return false;
+	public abstract Item disposable(Item obj);
+	
+	public static void print(String text) {
+		 System.out.println(text);
 	}
 }

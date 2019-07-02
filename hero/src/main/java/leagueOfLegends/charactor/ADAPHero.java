@@ -16,6 +16,10 @@ public class ADAPHero extends Hero implements AD,AP,Mortal {
         teemo.attack1(garen);
         
         print(String.valueOf(garen.hp));
+		/*
+		 *	AD、AP 都有 attack 的默认方法，需要在类中重新写一个方法覆盖
+		 */
+        garen.attack();
     }
 	
 	//构造方法

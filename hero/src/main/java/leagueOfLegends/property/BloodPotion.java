@@ -17,4 +17,13 @@ public class BloodPotion extends Item {
 	public void effect(){
         System.out.println("血瓶使用后，可以回血");
     }
+	
+	@Override
+	public Item disposable(Item obj) {
+		// TODO Auto-generated method stub
+		if(consumables) 
+			return null;
+		else
+			return obj;
+	} 
 }

@@ -14,9 +14,25 @@ public class CorruptionPotion extends Item {
 	public static void main(String[] ages) {
 		CorruptionPotion  corruption = new CorruptionPotion();
 		corruption.effect();
+		corruption = (CorruptionPotion)corruption.disposable(corruption);
+		print(corruption.number+"");
 	}
 	
 	public void effect(){
         System.out.println("腐败药水使用后，可以回血回蓝");
     }
+	
+	@Override
+	public Item disposable(Item obj) {
+		// TODO Auto-generated method stub
+		CorruptionPotion temp = (CorruptionPotion)obj;
+		if(temp.number > 1) {
+			temp.number --;
+			return temp;
+		}
+		if(consumables) 
+			return null;
+		else
+			return obj;
+	}
 }
