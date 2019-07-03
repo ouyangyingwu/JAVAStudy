@@ -25,10 +25,10 @@ public abstract class GenericParent {
 	/*
 	 * 	泛型抽象方法，返回参数的类型
 	*/
-	public abstract <T> T test1(T num);
+	public abstract <T> void test1(T num);
 	
 	/*
-	 * 	泛型抽象方法，无返回值
+	 * 	泛型抽象方法，返回参数的类型
 	*/
 	public abstract <T> void test2(T num);
 	
