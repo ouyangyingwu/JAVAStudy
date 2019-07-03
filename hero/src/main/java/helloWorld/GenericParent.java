@@ -19,27 +19,44 @@ public abstract class GenericParent {
 	public static void main(String[] args) 
 	{ 
 		int i = 1;
-		prints(test(i));
-	} 
+		prints(test3(i));
+	}
+	
+	/*
+	 * 	泛型抽象方法，返回参数的类型
+	*/
+	public abstract <T> T test1(T num);
+	
+	/*
+	 * 	泛型抽象方法，无返回值
+	*/
+	public abstract <T> void test2(T num);
 	
 	/*
 	 * 	一个泛型静态方法，返回参数的类型
 	*/
-	public static <T> String test(T num) {
+	public static <T> String test3(T num) {
+		return "static 泛类型方法的返回值 "+getType(num);
+	}
+	
+	/*
+	 * 	一个泛型静态方法，无返回值
+	*/
+	public static <T> String test4(T num) {
 		return "static 泛类型方法的返回值 "+getType(num);
 	}
 	
 	/*
 	 * 	一个泛型方法，返回参数的类型
 	*/
-	public <T> String test1(T num) {
+	public <T> String test5(T num) {
 		return "普通 泛类型方法的返回值 "+getType(num);
 	}
 	
 	/*
 	 * 	一个泛型方法，无返回值
 	*/
-	public <T> void test2(T num) {
+	public <T> void test6(T num) {
 		prints("普通 泛类型方法的返回值 "+getType(num));
 	}
 	
