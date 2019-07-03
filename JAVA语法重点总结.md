@@ -30,6 +30,7 @@ Java是大小写敏感的;
 *****
 ## 基本语法：（http://www.runoob.com/java/java-basic-syntax.html）
 > ### System.out.println("") 向控制台输出数据;
+> ### System.out.printf("") 向控制台输出数据;
 > ### Java表达式与块：
 >> 以;结尾的一段代码，即为一个表达式,`;`也是一个完整的表达式;
 <br /> 从{ 开始 到对应的} 结束，即一个块;
@@ -39,17 +40,26 @@ Java是大小写敏感的;
 <br /> 首字符之后可以是字母（A-Z或者a-z）,美元符（$）、下划线（_）或数字的任何字符组合;
 <br /> 关键字不能用作标识符,但可以包含关键字;标识符是大小写敏感的;
 > ### Java变量以及基本变量类型:
->>Java中有八种基本类型，都是Java语言预先定义好的，并且是关键字。 
-这八种基本类型分别是: 
+>>Java中有八种基本类型，都是Java语言预先定义好的，并且是关键字。 这八种基本类型分别是: 
 >> #### 整型 （4种：byte, short, int, long）;
 >>>![Java](hero/src/main/webapp/img/Java整型数据类型.png)
->>> 运算时要防止溢出发生,int a = 2147483647; //int类型整数的上限 System.out.println("a=" + (a+1)); //输出结果： a=-2147483648 溢出，结果错误。
+<br /> 运算时要防止溢出发生,int a = 2147483647; //int类型整数的上限 System.out.println("a=" + (a+1)); //输出结果： a=-2147483648 溢出，结果错误。
 >> #### 浮点型（2种）:
 >>> float 长度为32位(加上点有效数字8位，即小数点后第七位将产生四舍五入;定义时要声明在赋值后面加f或者（float）转换);
->>> double 长度为64位 (有效数字16位;默认类型;可以以d或者D结尾);
+<br /> double 长度为64位 (有效数字16位;默认类型;可以以d或者D结尾);
 <br /> 浮点数还可以用E或者e表示（科学计数法）e2表示10的二次方，即100;列:1.234e2 = 1.234x100;
 >>#### 布尔型（1种）;boolean;
 >>#### 字符型 （char）用于存放一个字符，值用单引号'表示，超过一个字符会编译错误;
+>>#### 所有的基本类型，都有对应的类类型 ,这种类就叫做封装类(Byte,Short,Integer,Long,Float,Double,Boolean,Char):
+>>> ![Java](hero/src/main/webapp/img/Java基本类型对应的封装类.png)
+<br /> **Number类**: 所有数字封装类(整型和浮点型)的抽象父类;
+<br /> **基本类型转封装类**: `Integer it = new Integer(i)`;
+<br /> **封装类转基本类型**: `int i2 = it.intValue();`;
+<br /> **自动装箱与自动拆箱**: 不需要调用构造方法，通过=符号自动把 基本类型 转换为 类类型 就叫装箱，例：`Integer it = i;`;不同类型**装箱**需要先转换类型，**拆箱**低精度可以直接直接复值为高精度；
+<br /> **数字的最大值，最小值**: 可以通过其对应的 封装类.MAX_VALUE 获取；
+<br /> **封装类比较**: 相同类可以通过 == 号进行值的比较，不同类不能进行比较；
+<br /> **字符串转数字**: 调用Integer的静态方法parseInt `String str = "999";int i= Integer.parseInt(str);`
+<br /> **数字转字符串**: 方法1： 使用String类的静态方法valueOf `String str = String.valueOf(i);`；方法2： 先把基本类型装箱为对象，然后调用对象的toString`Integer it = i;String str2 = it.toString();`
 >> #### String类型
 >>>这不是基本类型而是是一个类，即JAVA中所有见到的字符串都是对象;
 >> #### String类型扩展：
