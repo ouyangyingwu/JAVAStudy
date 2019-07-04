@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /*
  *	GenericArray 泛型类，
  *
- *	ArrayList的用法
+ *	ArrayList 的用法
  *	
  */
 public class GenericArray<E> extends  GenericParent {
