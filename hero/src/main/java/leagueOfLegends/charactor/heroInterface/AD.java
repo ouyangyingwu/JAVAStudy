@@ -6,7 +6,7 @@ import main.java.leagueOfLegends.charactor.ADAPHero;
  *	物理攻击接口
  * 	接口中的实体方法 必须用 default 修饰
 */
-public interface AD {
+public interface AD<D> {
 	//	默认常量 ，即前面默认了public static final修饰
 	 int percentage = 8;
 	 //	物理伤害

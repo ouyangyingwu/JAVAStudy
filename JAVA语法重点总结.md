@@ -98,6 +98,14 @@ Java是大小写敏感的;
 <br />// 字符串直接相加连接实际上调用了如下方法：
 <br />// new StringBuilder().a
 <br />f. String s = new String(new char[]{'c'});
+> ### Java泛类型:
+>> 泛型是Java SE 1.5的新特性，泛型的本质是参数化类型，也就是说所操作的数据类型被指定为一个参数。这种参数类型可以用在类、接口和方法的创建中，分别称为泛型类、泛型接口、泛型方法;
+>> #### **泛型类**: 
+>>> 例`public class Generic<E extends Object[,U...],G,M> extends GenericParent<G> implements MyInterface<M> {}`；
+<br />  `E extends` 后面可以写任意**类**，意为类型必须为该类或其子类；如果继承的父类和实现的接口有泛类那么继承时也要一起写过来；
+>> **泛型接口**: 例`public interface Generic<E extends Object[,U...],G> extends GenericParent<G>`; 接口可以继承多个接口，规则也类一致；
+<br /> **泛型方法**: 例`public <T extends Number> void test6(T num) {}`;如果泛型类以 T 为参数那么方法中可以不用声明<T>而是直接用类的T；
+<br /> **泛型名规范**: 通常作为第一个泛型类型(T,S,U,V,A,B...), 集合元素 泛型类型(E), 映射-键 泛型类型(K), 映射-值 泛型类型(V), 数值 泛型类型(N);
 > ### Java操作符：
 >> #### 算数操作符:`+、-、*、/、%、++、--、=`;
 >> #### 关系操作符:`==、>、>=、<、<=、!=`;
@@ -214,6 +222,7 @@ Java是大小写敏感的;
 >>> **接口类（特殊抽象类）**：必须用 public interface 修饰修饰； 
 <br /> **接口的方法**： 方法修饰符必须都是 public abstract，在继承的类中所有的方法必须被实现；
 <br /> **接口的变量**： 变量修饰符必须都是 public static final(常量)，在继承的类中所有的方法必须被实现；
+<br /> **接口继承接口**： 接口可以继承多个接口，接口中如果有默认方法或抽象方法产生冲突需要在继承的接口内新定义一个方法来覆盖；
 <br /> 通过 implements 继承接口，接口可以继承多个，用‘,’分隔；
 >> #### Java对象转型（引用类型和对象类型不一致的情况下的转换问题）：
 >>> 通常情况下，引用类型和对象类型是一样的; 例: `ADHero ad = new ADHero();` 对象 ad 的类型是 ADHero，引用的类型也是 ADHero；
