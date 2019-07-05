@@ -62,6 +62,10 @@ Java是大小写敏感的;
 <br /> **数字转字符串**: 方法1： 使用String类的静态方法valueOf `String str = String.valueOf(i);`；方法2： 先把基本类型装箱为对象，然后调用对象的toString`Integer it = i;String str2 = it.toString();`
 >> #### String类型
 >>>这不是基本类型而是是一个类，即JAVA中所有见到的字符串都是对象;
+<br /> 字符串格式化 
+`//%s表示字符串，%d表示数字,%n表示换行
+String sentenceFormat ="%s 在进行了连续 %d 次击杀后，获得了 %s 的称号%n";
+String sentence2 = String.format(sentenceFormat, name,kill,title);`
 >> #### String类型扩展：
 >>>>##### 1.String和char的区别：
 >>>>>**a**.char单引号标记且只能存一个字符，string双引号标记可寻多个字符;
@@ -160,10 +164,10 @@ Java是大小写敏感的;
 }`
 > ### Java数组：
 >> #### 声明数组：int[] a;
->>> typeName(类型名)[] arrayName(数组名); 声明了一个数组变量;
+>>> `typeName(类型名)[] arrayName(数组名)`; 声明了一个数组变量;
 <br /> 声明，不会创建数组; 数组必须声明类型，且之后数组只能存放该类型数据;
 >> #### 创建数组：new int[5];
->>> new 数组类型[数组长度] ; 创建一个数组;
+>>>` new 数组类型[数组长度]` ; 创建一个数组;
 <br /> 如果变量代表一个数组，比如a,我们把a叫做引用;
 <br /> 如果数组没有赋值，那么必须规定数组的长度，并且会使用默认值;数组的长度是不可变的;
 >> #### 数组通过下标来访问数据，下标从0开始;
@@ -184,6 +188,8 @@ Java是大小写敏感的;
 <br /> binarySearch 数组搜索: `int index = Arrays.binarySearch(a, 搜索的值);`; //首先需要对数组进行排序
 <br /> fill 数组填充: `Arrays.fill(a, 填充的内容);`; 
 <br /> .equals 判断是否相同: `Arrays.equals(a, b); //返回值是一个 boolean`; 比较得是数组的引用路径;
+<br /> ![Java](hero/src/main/webapp/img/Java数组和ArrayList的区别.png) 
+
 > ### Java类与对象：
 >> Java类：类是一个模板，它描述一类对象的行为和状态;
 >> #### Java Object 类：

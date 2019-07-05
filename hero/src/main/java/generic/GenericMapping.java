@@ -8,7 +8,7 @@ import java.util.HashMap;
  *	键值对的使用
  *	
  */
-public class GenericMapping<K ,V> extends  GenericParent {
+public class GenericMapping<K ,V,U> extends  GenericParent<U> {
 	/*
 	 *	映射泛型类型(K, V)：适用于泛型类型作为键值对的泛型定义。
 	 */
@@ -21,7 +21,7 @@ public class GenericMapping<K ,V> extends  GenericParent {
 	
 	public static void main(String[] args) 
 	{ 
-		GenericMapping<String,Integer> temp1 = new GenericMapping<String, Integer>();
+		GenericMapping<String,Integer,Float> temp1 = new GenericMapping<String, Integer,Float>();
 		temp1.myPut("张安", 100);
 		temp1.myPut("张龙", 150);
 		temp1.myPut("张增智", 200);
