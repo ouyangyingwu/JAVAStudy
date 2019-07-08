@@ -1,6 +1,9 @@
 package main.java.helloWorld;
 
-import java.util.Arrays;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import main.java.util.Parents;
 
@@ -9,40 +12,48 @@ import main.java.util.Parents;
 */
 public class StringArrayTest extends Parents {
 
-	public static void main(String[] ages) { 
-		//	创建一个长度为5的char数组
-		String[] array = new String[8];
-		char[] arr = new char[5];
-		for(int i = 0; i < 8; i++) {
-			for(int j = 0; j < 5; j++) {
-				arr[j] =  (char)random();
-			}
-			//System.out.println( Arrays.toString(arr) );
-			array[i] = new String(arr);
-		}
-
-        //System.out.println(Arrays.toString(array));
-       // array = arraySort(array);
+	public static void main(String[] ages)  { 
+		Date[] dateArr = new Date [9];
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat df1= new SimpleDateFormat("HHmmss");
+        try {
+        	Date d1 = df.parse("1970-1-1 00:00:00");
+            Date d2 = df.parse("2000-1-1 00:00:00");
+            for(int i = 0; i < 9; i++) {
+            	long random = (long)(Math.random()*(d2.getTime()-d1.getTime()))+d1.getTime();
+            	dateArr[i] = new Date(random);
+            }
+            
+            for(Date i : dateArr) {
+           	 prints( "排序前 "+ df.format(i));
+           }
+            
+            for(int i = 0; i < 9; i++) {
+            	for(int j = 0; j < 9; j++) {
+                	if( Integer.parseInt(df1.format(dateArr[i])) < Integer.parseInt(df1.format(dateArr[j]))) {
+                		Date temp = dateArr[i];
+                		dateArr[i] = dateArr[j];
+                		dateArr[j] = temp;
+                	}
+                }
+            }
+            for(Date i : dateArr) {
+            	 prints( "排序后 "+ df.format(i));
+            }
+            
+            Calendar c = Calendar.getInstance();
+            prints(df.format(c.getTime()));
+            c.add(Calendar.MONTH , 2);
+            prints(df.format(c.getTime()));
+            c.set(Calendar.DATE , -2);
+            prints(df.format(c.getTime()));
+            
+            
+            
+        } catch (ParseException e) {
+        	e.printStackTrace();
+        }
         
-        String[] temp = {"test", "testText", "TAuyjhjk", "ooo", "46545132"};
-        temp = arraySort(temp);
-        System.out.println(Arrays.toString(temp));
 	}
-	
-	/*
-	 * 	递归法
-	 * 	通过字符（数字字母）的ASCll码来获得随机字符
-	 * 
-	 * 	Math.random() 获得0-1的随机数，通过强制转换可以转为基本类型
-	*/
-	private static char random () {
-		//	获得有效范围（包括数字字母）的ASCll吗的随机数,然后转换为 char 字符
-		char i =  (char)(Math.random()*74 + 48);	
-		//	判断得到的字符是否为数字或字母，是则返回，否则递归
-		if(Character.isLetter( i ) || Character.isDigit( i ))
-			return i;
-		else 
-			return random();
-	}
-	
+
 }

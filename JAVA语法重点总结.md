@@ -31,6 +31,7 @@ Java是大小写敏感的;
 ## 基本语法：（http://www.runoob.com/java/java-basic-syntax.html）
 > ### System.out.println("") 向控制台输出数据;
 > ### System.out.printf("") 向控制台输出数据;
+> ### 使用System.currentTimeMillis() 获取当前时间(毫秒);
 > ### Java表达式与块：
 >> 以;结尾的一段代码，即为一个表达式,`;`也是一个完整的表达式;
 <br /> 从{ 开始 到对应的} 结束，即一个块;
@@ -77,6 +78,8 @@ String sentence2 = String.format(sentenceFormat, name,kill,title);`
 >>>>>> **C2**.String类是final类，也即意味着String类不能被继承，并且它的成员方法都默认为final方法。**String对象一旦被创建就是固定不变的了，对String对象的任何改变都不影响到原对象，相关的任何change操作都会生成新的对象;**
 <br /> **C3**.每当我们创建字符串常量时，JVM会首先检查字符串常量池，如果该字符串已经存在常量池中，那么就直接返回常量池中的实例引用。如果字符串不存在常量池中，就会实例化该字符串并且将其放到常量池中。**由于String字符串的不可变性我们可以十分肯定常量池中一定不存在两个相同的字符串**;
 <br /> **C4**.`str = new String("kvill"); str = str.intern()`; //把常量池中"kvill"的引用赋给str;
+<br /> **C5**.`str = new String("kvill"); start = "ll"; str.startsWith(start)`; //以...开始
+<br /> **C6**.`str = new String("kvill"); start = "ll"; str.endsWith (start)`; //以...结束
 >>>>##### 2.类型转换:(地址https://www.cnblogs.com/rrttp/p/7922202.html);
 >>>>>>###### 数据精度转换:
 >>>>>>> 自动转换就是直接复值;强制转换则需要加上(转换后的类型),强制转化如果值超过转化后的范围那么会有数据损失(内容溢出，超过部分的数据被丢弃);
@@ -102,6 +105,10 @@ String sentence2 = String.format(sentenceFormat, name,kill,title);`
 <br />// 字符串直接相加连接实际上调用了如下方法：
 <br />// new StringBuilder().a
 <br />f. String s = new String(new char[]{'c'});
+>>>>>>###### StringBuffer，变长的字符串：
+>>>>>>> 长度(length())、容量(capacity): StringBuffer和String内部是一个字符数组一样，StringBuffer也维护了一个字符数组但是，这个字符数组，
+留有冗余长度。比如说new StringBuffer("the")，其内部的字符数组的长度，是19(不同的JDK数量是不一样的)，而不是3，这样调用插入和追加，在现成的数组的基础上就可以完成了。
+<br /> append追加 , delete 删除 , insert 插入 , reverse 反转; **大量操作字符串时，StringBuffer效率更高**；
 > ### Java泛类型:
 >> 泛型是Java SE 1.5的新特性，泛型的本质是参数化类型，也就是说所操作的数据类型被指定为一个参数。这种参数类型可以用在类、接口和方法的创建中，分别称为泛型类、泛型接口、泛型方法;
 >> #### **泛型类**: 
@@ -259,46 +266,48 @@ String sentence2 = String.format(sentenceFormat, name,kill,title);`
 <br /> **静态内部类(同样用static修饰)**: 语法: `new 外部类.静态内部类();`；静态内部类的实例化 不需要一个外部类的实例为基础，可以直接实例化；静态内部类里面不可以访问外部类的实例属性和方法（可以访问私有**类/静态**属性方法）；
 <br /> **匿名内部类**: 匿名内部类是在抽象类和接口的基础之上发展起来的(在可实例化的类中` AD a = new AD(){public void physicAttack(ADAPHero temp) {System.out.println("匿名内部类.");};a.physicAttack(null);`)。匿名内部类如果继承自接口,必须实现指定接口的方法,且无参数 。匿名内部类如果继承自类,参数必须按父类的构造函数的参数传递；
 <br /> **本地内部类(局部类，类似局部变量)**: 直接声明在代码块里面，可以是主方法，for循环里等等地方；
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 > ### Scanner类:(获取用户输入的的内容)
 >> `import java.util.Scanner;` 导入类;
 <br /> 创建对象: Scanner scanner = new Scanner(System.in);
 <br /> 读取整数: int i = scanner.nextInt();
 <br /> 读取浮点数: float f = scanner.nextFloat();
 <br /> 读取字符串: String s = Scanner.nextLine();
-<br /> 关闭Scanner类: Scanner.close(); Scanner对象只能有一个（可设为成员变量）;只能关闭一次（如果非得关闭的话）;
-<br /> 
+<br /> 关闭Scanner类: Scanner.close(); Scanner对象只能有一个（可设为成员变量）;只能关闭一次（如果非得关闭的话）;> ### Scanner类:(获取用户输入的的内容)
+> ### Java时间:(java.util.Date)
+>> ### Date类:(java.util.Date)
+>>> `import java.util.Scanner;` 导入类;
+<br /> 创建对象:  `Date d1 = new Date(int temp)`; 从1970年1月1日 早上8点0分0秒 开始经历了temp毫秒的时间
+<br /> getTime 返回时间戳: `d1.getTime(); System.currentTimeMillis()`两个方法是一样的是一样的，不过由于机器性能的原因，可能会相差几十毫秒;
+>> #### 时间格式化 SimpleDateFormat：
+>>> 获取指定格式的对象： `SimpleDateFormat df = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss")`;
+<br /> 指定格式的时间转Date对象： `Date da = df.parse("2010-09-13 22:36:01");`;    返回值是Date对象
+<br /> 指定对象返回指定格式的时间戳： `df.format(new Date(d1));`;  返回值是String类型
+>> #### Calendar类（日历类）：
+>>> 采用单例模式获取日历对象 `Calendar c = Calendar.getInstance()`;
+<br /> 通过日历对象得到日期对象: `Date d = c.getTime()`;
+<br /> 通过日期对象设置日历对象 :`Date d2 = new Date(0);    c.setTime(d2)`;
+<br /> 翻日历 add()在原日期上增减年/月/日 、set()直接设置年/月/日:
+<br /> 上个月第三天: `c.add(Calendar.MONTH, -1);c.set(Calendar.DATE, 3);`;
+<br /> 下一年的今天: `c.add(Calendar.YEAR, 1);`;
+> ### Java文件处理:
+>> 创建 File 对象：`File file = new File(dest);`;
+<br /> 运行文件：`new FileInputStream(file);`；
 
 
-
+> ### Java异常处理:（导致程序的正常流程被中断的事件，叫做异常,总体上异常分三类：1错误; 2.运行时异常; 3.可查异常)
+>> #### 异常处理常见手段：(try catch finally throws throw)
+>>> Exception 异常处理的父类，子类有 FileNotFoundException(文件异常)、ParseException(字符串异常)
+<br /> try catch 异常处理: `try{ 正确时运行 }catch(Exception e){ e.printStackTrace(); }`;
+<br /> finally : 无论是否出现异常，finally中的代码都会被执行`finally{ System.out.println("无论文件是否存在， 都会执行的代码");}`;,快内不应该带有返回值，否则try catch的返回都会被覆盖；
+>>> ##### throw和throws的区别：(抛出了异常，谁调用，谁处理)
+>>>> throws 出现在方法声明上，而throw通常都出现在方法体内。
+<br /> throws 表示出现异常的一种可能性，并不一定会发生这些异常；throw则是抛出了异常，执行throw则一定抛出了某个异常对象。
+>> #### 错误Error：
+>>> 错误Error，指的是系统级别的异常，通常是内存用光了;
+<br /> Error类和Exception类都是Throwable的子类，**Error类不能够被捕捉**，Error类的子类有StackOverflowError类和OutOfMemoryError类；
+<br /> Exception(运行时异常)类可以用try catch捕捉，Exception类的子类有RuntimeException类（不强制要求用try catch捕捉，但是要这么做也可以）;
+<br /> 其他类(可查异常)（这些类被称为checked exception，是必须要用try catch捕捉的类，否则编译器不通过）;
+>>![Java](hero/src/main/webapp/img/Java异常类.png) 
 
 
 
