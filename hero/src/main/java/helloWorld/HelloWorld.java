@@ -17,9 +17,8 @@ public class HelloWorld {
 	}
 	
     public static void main(String[] args) {
-    	Parent obj = new Parent("dandan");
+    	
     	System.out.println("Hello World and "+args);
-        obj.print(" 0");
         
         System.out.println("JAVA".toCharArray().length);
         
