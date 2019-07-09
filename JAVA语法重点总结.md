@@ -201,7 +201,6 @@ String sentence2 = String.format(sentenceFormat, name,kill,title);`
 >> Java类：类是一个模板，它描述一类对象的行为和状态;
 >> #### Java Object 类：
 >>> 所有类的父类，申明一个没有继承的类时默认是继承了Object;
-<br /> 
 >> Java对象：拥有类的特征的实体;
 >> #### 创建(实例)对象： 
 >>> 创建：`new Hero();`;仅仅是创建了一个对象，没有办法访问它为了访问这个对象;
