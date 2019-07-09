@@ -1,4 +1,4 @@
-package main.java.util;
+package main.java.exception;
 
 public class MyStringBuffer implements IStringBuffer{
  
@@ -46,27 +46,31 @@ public class MyStringBuffer implements IStringBuffer{
  
     @Override
     public void delete(int start) {
-         
-        delete(start,length);
+         try {
+        	 delete(start,length); 
+         } catch(IndexException e) {
+        	 System.out.println("异常的具体原因:"+e.getMessage());
+             e.printStackTrace();
+         }
     }
  
-    @Override
-    public void delete(int start, int end) {
+    //@Override
+    public void delete(int start, int end) throws IndexException {
         //边界条件判断
         if(start<0)
-            return;
+            throw new IndexException("开始位置必须大于0");
          
         if(start>length)
-            return;
+        	throw new IndexException("开始位置必须小于length");
          
         if(end<0)
-            return;
+        	throw new IndexException("结束位置必须大于0");
          
         if(end>length)
-            return;
+        	throw new IndexException("结束位置必须小于length");
          
         if(start>=end)
-            return;
+        	throw new IndexException("开始位置必须大于结束位置");
          
         System.arraycopy(value, end, value, start, length- end);
         length-=end-start;
@@ -153,8 +157,14 @@ public class MyStringBuffer implements IStringBuffer{
          
         sb.reverse();
         System.out.println(sb);
-         
-        sb.delete(0,4);
+        
+        try {
+        	sb.delete(0,0);
+        } catch(IndexException e) {
+        	System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        
         System.out.println(sb);
         sb.delete(4);
         System.out.println(sb);
