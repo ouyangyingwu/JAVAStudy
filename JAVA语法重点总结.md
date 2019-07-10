@@ -334,6 +334,7 @@ String sentence2 = String.format(sentenceFormat, name,kill,title);`
 >>> ##### throw和throws的区别：(抛出了异常，谁调用，谁处理；注意在处理抛出异常时的对象要与对象的类一致)
 >>>> throws 出现在方法声明上，而throw通常都出现在方法体内。
 <br /> throws 表示出现异常的一种可能性，并不一定会发生这些异常；throw则是抛出了异常，执行throw则一定抛出了某个异常对象。
+<br /> 实现的抽象方法抛出错误时，被继承的方法也要抛出错误；
 >> #### 错误Error：
 >>> 错误Error，指的是系统级别的异常，通常是内存用光了;
 <br /> Error类和Exception类都是Throwable的子类，**Error类不能够被捕捉**，Error类的子类有StackOverflowError类和OutOfMemoryError类；
