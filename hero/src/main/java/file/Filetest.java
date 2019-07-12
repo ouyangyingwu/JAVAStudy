@@ -97,10 +97,15 @@ public class Filetest extends Parents {
         }
         prints( "最大的文件是："+max.getName() +" 值为："+ max.length());
         prints( "最小的文件是："+min.getName() +" 值为："+ min.length());
+        
+        Filetest yy = new Filetest();
+        File[] a = yy.myFlieList("e:/JAVAStudy/hero/src/main/java");
     }
 	
-	private File[] myFlieList(String pathname) {
-		
+	private File[] myFlieList ( String pathname ) {
+		File[]	sum = new File[0];
+		int test = 1;
+		test++;
 		//先将指定路径下的所有文件实例化
 		File file = new File(pathname);
 		//判断实例化的对象file是否存在，即指定路径是否存在
