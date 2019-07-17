@@ -157,6 +157,10 @@ public class Parents {
 
 	public static void main(String[] ages) {
 		ArrayList<File> list = listFileObj("e:/JAVAStudy/hero/src/main/java");
+		File[] array = (File[]) list.toArray(new File[list.size()]);
 		prints(list.get(2).getName());
+		prints(array[2].getName());
+		prints( list);
+		prints( array);
 	}
 }

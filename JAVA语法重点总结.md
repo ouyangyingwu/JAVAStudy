@@ -195,6 +195,7 @@ String sentence2 = String.format(sentenceFormat, name,kill,title);`
 <br /> binarySearch 数组搜索: `int index = Arrays.binarySearch(a, 搜索的值);`; //首先需要对数组进行排序
 <br /> fill 数组填充: `Arrays.fill(a, 填充的内容);`; 
 <br /> .equals 判断是否相同: `Arrays.equals(a, b); //返回值是一个 boolean`; 比较得是数组的引用路径;
+<br /> ArrayList 数组转为普通数组：`String[] a = b.toArray(new String(b.size()))`;注意，把数组的类型要一致；
 <br /> ![Java](hero/src/main/webapp/img/Java数组和ArrayList的区别.png) 
 
 > ### Java类与对象：
@@ -307,6 +308,12 @@ String sentence2 = String.format(sentenceFormat, name,kill,title);`
 <br /> listRoots()：列出所有的盘符，返回值是一个File[]；
 <br /> delete()：刪除文件；
 <br /> deleteOnExit()：JVM结束的时候，刪除文件，常用于临时文件的删除；
+>> #### Java 文件流:(流就是一系列的数据,当不同的介质之间有数据交互的时候，JAVA就使用流来实现；数据源可以是文件，还可以是数据库，网络甚至是其他的程序)  
+>>> **输入流**： InputStream，字节输入流，抽象类，FileInputStream(文件输入流)是它的子类; 
+<br /> **输出流**：OutputStream，字节输出流，抽象类，FileOutputStream(文件输出流)是它的子类; 
+<br /> 创建基于文件的输入流: `File f = new File("e:/JAVAClass/file.txt"); FileInputStream fis = new FileInputStream(f);`以把数据从硬盘，读取到Java的虚拟机(内存)中;
+
+
 
 > ### Java UML图:（可见性：+、#、~、-）
 >> 层次：上层是类名，中层是属性名，下层是方法名;
