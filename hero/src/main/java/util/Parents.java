@@ -259,7 +259,5 @@ public class Parents {
 		  prints(list.get(2).getName()); prints(array[2].getName());
 		  prints( list);
 		  prints( array);
-		 
-		fileSplit("e:/JAVAClass/eclipse-inst-win64.exe", 10000*1024);
 	}
 }
