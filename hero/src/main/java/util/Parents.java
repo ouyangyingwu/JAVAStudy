@@ -238,6 +238,9 @@ public class Parents {
 	 * @return	返回值：无
 	 */
 	protected static void fileSplit(File file, int size) {
+		fileSplit(file, size, "");
+	}
+	protected static void fileSplit(File file, int size, String folder) {
 		try {
 			if (!file.isFile())
 				throw new IOException("这不是一个文件");
@@ -250,10 +253,12 @@ public class Parents {
 			for (int i = 0; i < len; i += size) {
 				n++;
 				String fileName = file.getAbsolutePath() + "-" + n;
-				FileOutputStream oneTemp = new FileOutputStream(fileName);
+				if(folder.length() > 0) 
+					fileName = file.getParentFile().getAbsolutePath() +"/"+folder+"/"+file.getName() +"-" + n;
+				
+				FileOutputStream oneTemp = new FileOutputStream(newFile(fileName));
 				byte[] arr = Arrays.copyOfRange(array, i, i + size);
 				oneTemp.write(arr);
-				prints(fileName);
 				oneTemp.close();
 			}
 			temp.close();
@@ -261,7 +266,62 @@ public class Parents {
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 * 文件合并 
+	 * 将指定文件夹下的文件合并为一个指定名字的文件
+	 *	
+	 *	<br>使用的系统函数： 
+	 *	<br>getParentFile() File对象调用，以对象的形式返回当前文件所在的文件夹，无参数，返回值为File对象 
+	 *	<br>exists() File对象调用，判断文件对象是否存在，无参数，返回值为 boolean 类型
+	 *	<br>mkdirs() File对象调用，创建文件夹，如果父文件夹不存在就会创建父文件夹，无参数，无返回值
+	 *
+	 * @param	file 必填参数：File对象 
+	 * @param	size 必填参数 ：int类型，拆分后的文件大小
+	 *
+	 * @return	返回值：无
+	 */
+	protected static void fileMerge(String pathname, String fileName) {
+		File[] fileArray = newFile(pathname).listFiles();
+		fileMerge(fileArray, fileName, pathname);
+	}
+	protected static void fileMerge(File[] fileArray, String fileName) {
+		String pathname = fileArray[0].getParentFile().getAbsolutePath();
+		fileMerge(fileArray, fileName, pathname);
+	}
+	protected static void fileMerge(String pathname, String fileName, String newPathname) {
+		File[] fileArray = newFile(pathname).listFiles();
+		fileMerge(fileArray, fileName, newPathname);
+	}
+	protected static void fileMerge(File[] fileArray, String fileName, String pathname) {
+		FileOutputStream obj = null;
+		FileInputStream one = null;
+		try {
+			if(fileName.length() == 0) 
+				throw new IOException("新文件名不能为空");
+			
+	        obj = new FileOutputStream(pathname+"/"+fileName, true);
+	        for(File i : fileArray) {
+	        	one = new FileInputStream(i);
+	        	byte[] tmp = new byte[(int)i.length()];
+	        	one.read(tmp);
+	        	obj.write(tmp);
+	        	one.close();
+	        }
+	        obj.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(obj != null)	obj.close();
+				if(one != null)	one.close();
+			} catch(IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	public static void main(String[] ages) {
 		
 		 ArrayList<File> list = listFileObj("e:/JAVAStudy/hero/src/main/java"); 

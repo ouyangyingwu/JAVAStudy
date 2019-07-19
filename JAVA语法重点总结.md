@@ -316,6 +316,12 @@ String sentence2 = String.format(sentenceFormat, name,kill,title);`
 >>>> 创建基于文件的输出流: `FileOutputStream fos = new FileOutputStream(f , true)`; 第二个参数设为true，表示追加内容，否则替换原有内容;
 <br /> 把数据写入到输出流: `fos.write(data)`;  注意:data的类型只可以是 int、short、byte、byte[], getBytes()方法可以将字符串转化为byte[], "\r\n"可用于换行;
 <br /> 输出流对应的文件如果不存在会自动创建一个；
+>>> ##### 关闭流
+>>>> 所有的流，无论是输入流还是输出流，使用完毕之后，都应该关闭。 如果不关闭，会产生对资源占用的浪费;
+<br /> 方法一：在try中关闭，如果文件不存在，或者读取的时候出现问题而抛出异常，那么就不会执行这一行关闭流的代码，存在巨大的资源占用隐患;
+<br /> 方法二：在finally中关闭，1. 首先把流的引用声明在try的外面，如果声明在try里面，其作用域无法抵达finally；2. 在finally关闭之前，要先判断
+该引用是否为空；3. 关闭的时候，需要再一次进行try catch处理，标准但是很繁琐；
+<br /> 方法三：把流定义在try()里,try,catch或者finally结束的时候，会自动关闭；这种编写代码的方式叫做 try-with-resources， 这是从JDK7开始支持的技术；
 
 > ### Java UML图:（可见性：+、#、~、-）
 >> 层次：上层是类名，中层是属性名，下层是方法名;
