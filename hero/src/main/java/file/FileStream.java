@@ -2,10 +2,8 @@ package main.java.file;
 
 import java.io.File;
 import java.io.FileInputStream;
-//import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Arrays;
 
 import main.java.util.Parents;
 
@@ -40,7 +38,7 @@ public class FileStream extends Parents {
             /*
              * 	文件拆分为100k大小
 			*/
-            File temp2 = newFile("e:/JAVAClass/eclipse-inst-win64.exe");
+            File temp2 = newFile("e:/JAVAClass/ggg/eclipse-inst-win64.exe");
             fileSplit(temp2, 10000*1024);
             fileSplit("e:/JAVAClass/eclipse-inst-win64.exe", 10000*1024);
             
@@ -50,7 +48,6 @@ public class FileStream extends Parents {
             fis.close();
             fos.close();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 		
