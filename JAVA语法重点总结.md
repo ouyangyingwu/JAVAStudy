@@ -309,9 +309,13 @@ String sentence2 = String.format(sentenceFormat, name,kill,title);`
 <br /> delete()：刪除文件；
 <br /> deleteOnExit()：JVM结束的时候，刪除文件，常用于临时文件的删除；
 >> #### Java 文件流:(流就是一系列的数据,当不同的介质之间有数据交互的时候，JAVA就使用流来实现；数据源可以是文件，还可以是数据库，网络甚至是其他的程序)  
->>> **输入流**： InputStream，字节输入流，抽象类，FileInputStream(文件输入流)是它的子类; 
-<br /> 创建基于文件的输入流: `File f = new File("e:/JAVAClass/file.txt"); FileInputStream fis = new FileInputStream(f);`以把数据从硬盘，读取到Java的虚拟机(内存)中;
+>>> #####**输入流**： InputStream，字节输入流，抽象类，FileInputStream(文件输入流)是它的子类; 
+>>>> #####**字节输入流**： InputStream，字节输入流，抽象类，FileInputStream(字节输入流)是它的子类; 
+>>>>> 创建基于文件的输入流: `File f = new File("e:/JAVAClass/file.txt"); FileInputStream fis = new FileInputStream(f);`以把数据从硬盘，读取到Java的虚拟机(内存)中;
 <br /> 输入流对应的文件必须存在，否则报错；`byte[] arr = new byte[f.length()]; fis.read(arr);`将文件内容byte的形式存入数组;
+>>>> #####**字符输入流**： Reader，字符输入流，抽象类，FileReader(字符输入流)是它的子类; 
+>>>>> 创建基于文件的输入流: `FileReader fis = new FileReader(f);`以把数据从硬盘，读取到Java的虚拟机(内存)中;
+<br /> 输入流对应的文件必须存在，否则报错；`char[] arr = new char[f.length()]; fis.read(arr);`将文件内容char的形式存入数组;
 >>> #####**输出流**：OutputStream，字节输出流，抽象类，FileOutputStream(文件输出流)是它的子类; 
 >>>> 创建基于文件的输出流: `FileOutputStream fos = new FileOutputStream(f , true)`; 第二个参数设为true，表示追加内容，否则替换原有内容;
 <br /> 把数据写入到输出流: `fos.write(data)`;  注意:data的类型只可以是 int、short、byte、byte[], getBytes()方法可以将字符串转化为byte[], "\r\n"可用于换行;

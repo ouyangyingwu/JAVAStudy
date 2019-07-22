@@ -3,6 +3,8 @@ package main.java.util;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -276,8 +278,10 @@ public class Parents {
 	 *	<br>exists() File对象调用，判断文件对象是否存在，无参数，返回值为 boolean 类型
 	 *	<br>mkdirs() File对象调用，创建文件夹，如果父文件夹不存在就会创建父文件夹，无参数，无返回值
 	 *
-	 * @param	file 必填参数：File对象 
-	 * @param	size 必填参数 ：int类型，拆分后的文件大小
+	 * @param	pathname 必填参数：String类型，指定的文件的路径
+	 * @param	fileName 必填参数 ：String类型，合并后的文件名称
+	 * @param	fileArray 必填参数 ：File[]类型，需要合并的文件对象数组
+	 * @param	newPathname 可选参数 ：String类型，合并后的文件的存放路径
 	 *
 	 * @return	返回值：无
 	 */
@@ -293,14 +297,14 @@ public class Parents {
 		File[] fileArray = newFile(pathname).listFiles();
 		fileMerge(fileArray, fileName, newPathname);
 	}
-	protected static void fileMerge(File[] fileArray, String fileName, String pathname) {
+	protected static void fileMerge(File[] fileArray, String fileName, String newPathname) {
 		FileOutputStream obj = null;
 		FileInputStream one = null;
 		try {
 			if(fileName.length() == 0) 
 				throw new IOException("新文件名不能为空");
 			
-	        obj = new FileOutputStream(pathname+"/"+fileName, true);
+	        obj = new FileOutputStream(newPathname+"/"+fileName, true);
 	        for(File i : fileArray) {
 	        	one = new FileInputStream(i);
 	        	byte[] tmp = new byte[(int)i.length()];
@@ -320,6 +324,38 @@ public class Parents {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	/**
+	 *	文件加密
+	 *	加密算法： 
+	 *	数字：如果不是9的数字，在原来的基础上加1，比如5变成6, 3变成4，如果是9的数字，变成0；
+	 *	字母字符：如果是非z字符，向右移动一个，比如d变成e, G变成H，如果是z，z->a, Z-A。字符需要保留大小写；
+	 *	非字母字符：比如',&^ 保留不变，中文也保留不变；
+	*/
+	public static void encodeFile(File encodingFile, File encodedFile) {
+		char[] array = null;
+		try (FileReader reader = new FileReader(encodingFile)){
+			array = new char[(int) encodingFile.length()];
+			reader.read(array);
+			for(int i = 0; i < array.length; i++) {
+				if(Character.isLetter(array[i])) {
+					array[i] = Character.toLowerCase(array[i]) == 'z' ? (char)((int)array[i] - 25) : (char)((int)array[i] + 1);
+				}
+				if(Character.isDigit(array[i])) {
+					array[i] = array[i] == '9' ? '0' : (char)((int)array[i] + 1);
+				}
+			}
+		} catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+		try (FileWriter temp = new FileWriter(encodedFile, true)){
+			temp.write(array);
+		} catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 	}
 	
 	public static void main(String[] ages) {

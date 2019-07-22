@@ -16,7 +16,7 @@ public class FileStream extends Parents {
 	public static void main(String[] ages) {
 		
 		try {
-			File temp = new File("e:/JAVAClass/file.txt");
+			File temp = new File("e:/JAVAStudy/JaveTest/file.txt");
 			
 			/*
 			 * 	字节流
@@ -29,23 +29,23 @@ public class FileStream extends Parents {
 			/*
 			 * 	输出：内容写入到文件
 			*/
-            File temp1 = newFile("e:/JAVAClass/t/e/s/t/test.txt");
+            File temp1 = newFile("e:/JAVAStudy/JaveTest/t/e/s/t/test.txt");
             FileOutputStream fos = new FileOutputStream(temp1, true);
-            String str = "shilezhi k  test 鸡你太美";
+            String str = "鸡你太美";
             fos.write(str.getBytes());
             fos.write("\n\r".getBytes());
 			
             /*
              * 	文件拆分为100k大小
 			*/
-            File temp2 = newFile("e:/JAVAClass/eclipse-inst-win64.exe");
+            File temp2 = newFile("e:/JAVAStudy/JaveTest/eclipse-inst-win64.exe");
             fileSplit(temp2, 10000*1024, "ceshi");
             
             /*
              * 	将上述拆分的文件合并
 			*/
             //File[] arr = newFile("e:/JAVAClass/ceshi").listFiles();
-            fileMerge("e:/JAVAClass/ceshi", "LOL.exe");
+            fileMerge("e:/JAVAStudy/JaveTest/ceshi", "LOL.exe");
             
             
             File temp3 = new File("");
