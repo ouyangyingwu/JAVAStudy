@@ -359,8 +359,15 @@ String sentence2 = String.format(sentenceFormat, name,kill,title);`
 <br /> Error类和Exception类都是Throwable的子类，**Error类不能够被捕捉**，Error类的子类有StackOverflowError类和OutOfMemoryError类；
 <br /> Exception(运行时异常)类可以用try catch捕捉，Exception类的子类有RuntimeException类（不强制要求用try catch捕捉，但是要这么做也可以）;
 <br /> 其他类(可查异常)（这些类被称为checked exception，是必须要用try catch捕捉的类，否则编译器不通过）;
->>![Java](hero/src/main/webapp/img/Java异常类.png) 
+<br />![Java](hero/src/main/webapp/img/Java异常类.png) 
 
+> ### Java格式转换:
+>> **中文转字节(byte)**: `byte[] by = "转换".getBytes("UTF-8");`;
+<br /> **字节(byte)转中文**: `String str = new String(by,"UTF-8");`;
+<br /> **字节(byte)转int**: `int i = by[0]&0x000000ff`;如果直接转换，当值为负数时直接转换会做位扩展；例如一个byte类型的-1（即0xff），
+会被转换成int 类型的-1（即0xffffffff），那么转化出的结果就不是我们想要的;
+<br /> **int转将十六进制字符串**: `String hex = Integer.toHexString(i);`;
+<br /> **十六进制字符串字节(byte)**: `byte[] by1 = {(byte)0xe6, (byte)0xb6, (byte)0x8b};`;
 
 
 

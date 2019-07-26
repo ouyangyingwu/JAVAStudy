@@ -2,10 +2,12 @@ package main.java.leagueOfLegends.charactor;
 
 import main.java.leagueOfLegends.property.*;
 import main.java.leagueOfLegends.charactor.heroInterface.Mortal;
+
+import java.io.Serializable;
 import java.util.Scanner;
 
 //如果你不加 public 或 private 则默认为 friendly(包权限,只能被同文件夹下的的类访问) 权限,类、方法.属性都是;
-public class Hero {
+public class Hero implements Serializable {
 	public String name;
 	public float hp;
 	public float armor;				//护甲
@@ -20,6 +22,8 @@ public class Hero {
 	int attackSpeed;					//攻速
 	String wordAfterKill;			//击杀后的话
 	private static String wordAfterKilled = "死了死了";		//死亡后的话
+	
+	private static final long serialVersionUID = 1L;
 	/*
 	 * 	-------战斗成绩内部类------
 	 * 	非静态内部类，等同于类一个特殊特殊成员

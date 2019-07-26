@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -333,7 +335,7 @@ public class Parents {
 	 *	字母字符：如果是非z字符，向右移动一个，比如d变成e, G变成H，如果是z，z->a, Z-A。字符需要保留大小写；
 	 *	非字母字符：比如',&^ 保留不变，中文也保留不变；
 	*/
-	public static void encodeFile(File encodingFile, File encodedFile) {
+	protected static void encodeFile(File encodingFile, File encodedFile) {
 		char[] array = null;
 		try (FileReader reader = new FileReader(encodingFile)){
 			array = new char[(int) encodingFile.length()];
@@ -356,6 +358,144 @@ public class Parents {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+	}
+	
+	/**
+	 * 为文件去除注释(单行//、多行/* * /)
+	 *	同一行有多个注释时会有问题
+	*/
+	protected static void removeComments(File file, File newfile) {
+		try{
+			if(!file.exists())
+				throw new IOException("文件必须存在");
+			if(file == newfile)
+				throw new IOException("不能再原文件操作");
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+		try (
+				FileReader fr = new FileReader(file);
+				BufferedReader br = new BufferedReader(fr);
+				FileWriter fw = new FileWriter(newfile);
+				PrintWriter pw = new PrintWriter(fw);
+				)
+		{
+			boolean multi = false;
+			while (true) {
+				String line = br.readLine();
+                if (null == line)
+					break;
+                boolean show = true;
+            	if(line.indexOf("//") == 0)
+            		show = false;
+            	if(line.indexOf("//") > 0) {
+            		line = line.substring(0,line.indexOf("//"));
+            		show = line.trim().length() > 0 ? true : false;
+            	}
+            	if(line.indexOf("/*") >= 0) {
+            		int key = line.indexOf("/*");
+            		multi = true;
+            		if(key == 0)
+            			show = false;
+            		else {
+            			line = line.substring(0, key);
+            			show = line.trim().length() > 0 ? true : false;
+            		}
+            	}
+            	if(multi) {
+            		show = false;
+               		int key = line.indexOf("*/");
+               		if(key == line.length()-2) 
+               			multi = false; 
+               		if(key > 0) {
+               			multi = false;
+               			line = line.substring(key+2);
+               			show = line.trim().length() > 0 ? true : false;
+               		}
+               }
+                if(show)
+                	pw.println(line);
+            }
+			pw.flush();
+		}	catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
+
+	/**
+	 * 复制文件
+	*/
+	protected static void copyFile(String srcFile, String destFile){
+		File file = new File(srcFile);
+    	File newfile = new File(destFile);
+    	copyFile(file,newfile);
+	}
+	protected static void copyFile(File file, File newfile){
+		try(
+				BufferedReader br = new BufferedReader(new FileReader(file));
+				PrintWriter pw = new PrintWriter(new FileWriter(newfile));
+				)
+		{
+			while(true) {
+				String line = br.readLine();
+				if(line == null) break;
+				pw.println(line);
+			}
+			pw.flush();
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 复制文件夹，包括子文件和文件夹
+	*/
+	protected static void copyFolder(String srcFolder, String destFolder){
+		File file = newFile(srcFolder);
+    	File newfile = newFile(destFolder);
+    	copyFolder(file,newfile);
+	}
+	protected static void copyFolder(File folder, File newFolder){
+		File[] fileArr = folder.listFiles();
+		String newUrl = newFolder.getAbsolutePath();
+		for(File i : fileArr) {
+			File temp = newFile(newUrl+"/"+i.getName());
+			if(i.isDirectory())
+				copyFolder(i, temp);
+			else
+				copyFile(i, temp);
+		}
+	}
+	
+	/**
+	 *	查找文件内容
+	*/
+	protected static String[] search(File folder, String search) {
+		File[] fileArr = folder.listFiles();
+		ArrayList<String> list = new ArrayList<String>();
+		for(File i : fileArr) {
+			if(i.isDirectory())
+				search(i, search);
+			else {
+				try(BufferedReader br = new BufferedReader(new FileReader(i));)
+				{
+					while(true) {
+						String line = br.readLine();
+						if(line == null) break;
+						if(line.indexOf(search) >= 0) {
+							String url = i.getAbsolutePath();
+							list.add(url);
+							prints(url);
+							break;
+						}
+					}
+				} catch(IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		String[] urlList =list.toArray(new String[list.size()]);
+		return urlList;
 	}
 	
 	public static void main(String[] ages) {

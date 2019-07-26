@@ -1,5 +1,7 @@
 package main.java.leagueOfLegends.charactor;
 
+import java.io.Serializable;
+
 import main.java.leagueOfLegends.charactor.heroInterface.AD;
 import main.java.leagueOfLegends.charactor.heroInterface.AP;
 import main.java.leagueOfLegends.charactor.heroInterface.Mortal;
@@ -9,9 +11,11 @@ import main.java.leagueOfLegends.property.*;
  * 	物理英雄类
  * 	匿名内部类：匿名内部类并不在接口或抽象类中而是在可实例化的类中
 */
-public class ADHero extends Hero implements AD,AP,Mortal {
+public class ADHero extends Hero implements AD<Object>,AP,Mortal, Serializable {
+	private static final long serialVersionUID = 1L;
 	int attackPower;
 	
+	//private static final long serialVersionUID = 7237L;
 	public static void main(String[] args) {
         ADHero bh = new ADHero("提莫", 383f, 14f, 330, 8);
         bh.name = "赏金猎人";
@@ -32,7 +36,7 @@ public class ADHero extends Hero implements AD,AP,Mortal {
 		/*
 		 * 	匿名内部类，源自AD接口
 		*/
-        AD a = new AD(){
+        AD<Object> a = new AD<Object>(){
         	@Override
         	public void physicAttack(ADAPHero temp) {
         		System.out.println("接口的匿名内部类.");
@@ -55,7 +59,7 @@ public class ADHero extends Hero implements AD,AP,Mortal {
 	//构造方法
 	public ADHero(String heroName, float heroHP, float heroArmor, int heroMoveSpeed, int heroAttackPower) {
 		super(heroName, heroHP, heroArmor, heroMoveSpeed);
-		attackPower = heroAttackPower;
+		this.attackPower = heroAttackPower;
 	}
 	
 	public void attack() {
