@@ -48,6 +48,13 @@ public class ObjectStream extends Parents {
 			e.printStackTrace();
 		}
 		exercise();
+
+		//练习-判断是否相同 
+		Hero[] heroArray = new Hero[10];
+		for(int i = 0; i < 10 ; i++) {
+			heroArray[i] = new Hero("盖伦 "+(i+1)+" 号", 615f, 14f, 330);
+		}
+		searchObject(heroArray , "盖伦 1 号");
 	}
 	
 	/*
@@ -80,4 +87,20 @@ public class ObjectStream extends Parents {
 			e.printStackTrace();
 		}
 	}
+	
+
+	/*
+	 * 练习-判断是否相同     
+	 * 
+	 * 如果就是要判断集合里是否存在一个 name等于 "hero 1 号"的对象，应该怎么做？
+	*/
+	private static void searchObject(Hero[] heroArray , String name) {
+		for(Hero i : heroArray) {
+			if( i.name.equals(name) )	{
+				prints(i.name);return ;
+			}
+		}
+		prints("不存在该对象");
+	}
+
 }

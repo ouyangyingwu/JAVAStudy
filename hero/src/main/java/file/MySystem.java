@@ -1,6 +1,7 @@
 package main.java.file;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import main.java.util.Parents;
@@ -30,6 +31,7 @@ public class MySystem extends Parents {
        	copyFolder("e:/JAVAStudy/JaveTest/t", "e:/JAVAStudy/JaveTest/ceshi");
        	
        	//	查找文件内容
-       	search(new File("e:/JAVAStudy/JaveTest/t"), "捉迷藏");
+       	String[] searchstr = search(new File("e:/JAVAStudy/JaveTest/t"), "捉迷藏");
+       	prints(Arrays.toString(searchstr));
     }
 }

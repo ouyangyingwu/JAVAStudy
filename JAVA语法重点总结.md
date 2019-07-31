@@ -169,6 +169,7 @@ String sentence2 = String.format(sentenceFormat, name,kill,title);`
             if(0==j%2) break outloop; //如果是双数，结束外部循环
     }
 }`
+
 > ### Java数组：
 >> #### 声明数组：int[] a;
 >>> `typeName(类型名)[] arrayName(数组名)`; 声明了一个数组变量;
@@ -195,8 +196,39 @@ String sentence2 = String.format(sentenceFormat, name,kill,title);`
 <br /> binarySearch 数组搜索: `int index = Arrays.binarySearch(a, 搜索的值);`; //首先需要对数组进行排序
 <br /> fill 数组填充: `Arrays.fill(a, 填充的内容);`; 
 <br /> .equals 判断是否相同: `Arrays.equals(a, b); //返回值是一个 boolean`; 比较得是数组的引用路径;
-<br /> ArrayList 数组转为普通数组：`String[] a = b.toArray(new String(b.size()))`;注意，把数组的类型要一致；
+>> ### ArraysList类：
+>>> 创建：`ArrayList<String> al = new ArrayList()<String>;`;
+<br /> 增、删、该、查：`al.add("kk");   al.remove(0);   al.set(0,"hh"); al.get(0);`;
+<br /> 将另一个数组加进来：`al.addAll(newAl);`;
+<br /> 判断对象是否在数组中：`al.contains(temp);`;
+<br /> 清空数组：`al.clear();`;
+<br /> ArrayList 数组转为普通数组：`String[] a = b.toArray(new String(b.size()));String[] a = b.toArray(new String[]{})`;注意，把数组的类型要一致；
+<br /> 普通数组转为 ArrayList 数组：`List a = Arrays.asList(b);`;注意，把数组的类型要一致；
 <br /> ![Java](hero/src/main/webapp/img/Java数组和ArrayList的区别.png) 
+>> ### LinkedList类与ArrayList类的区别：
+>>> 1、1.ArrayList是实现了基于动态数组的数据结构，LinkedList基于链表的数据结构。
+<br /> 2、ArrayList 插入，删除数据慢;LinkedList， 插入，删除数据快;
+<br /> 3、ArrayList 定位快(需要定位的：set、get、add(index,e));LinkedList定位慢;
+>> ### HashMap(键值对，键不能重复值可以)类：
+>>> 声明并创建对象：`HashMap<String,String> dictionary = new HashMap<>();`;
+<br /> 插入数据：`dictionary.put("t", "坦克");`;
+>> ### HashSet 类：
+>>> 声明并创建对象：`HashSet<String> hs = new HashSet<>();`;
+<br /> HashSet是作为Map的key而存在的,所以元素不能重复(后面的会把前面的值替换);
+<br /> HashSet是没有顺序的，严格的说，是没有按照元素的插入顺序排列；
+<br /> HashSet的判断步骤：hashcode是否一样，如果hashcode不一样，就是在不同的坑里，一定是不重复的，否则就是在同一个坑里，还需要进行equals比较；
+如果equals一样，则是重复数据，如果equals不一样，则是不同数据。
+>> ### HashMap和Hashtable的区别：
+>>> HashMap和Hashtable都实现了Map接口，都是键值对保存数据的方式;
+<br /> **区别1：** HashMap可以存放 null,Hashtable不能存放null;
+<br /> **区别2：** HashMap不是线程安全的类,Hashtable是线程安全的类;
+>> ### List(ArrayList、LinkedList...) 与 Map(HashMap、Hashtable...)相比,做查找时 Map 效率超高;
+>> ### HashMap:性能卓越的原因:
+>>> -----hashcode概念----- 所有的对象，都有一个对应的hashcode（散列值）;
+<br /> 在查找数据时，首先找对应的 hashcode ，然后在找值；
+
+
+
 
 > ### Java类与对象：
 >> Java类：类是一个模板，它描述一类对象的行为和状态;
@@ -309,23 +341,40 @@ String sentence2 = String.format(sentenceFormat, name,kill,title);`
 <br /> delete()：刪除文件；
 <br /> deleteOnExit()：JVM结束的时候，刪除文件，常用于临时文件的删除；
 >> #### Java 文件流:(流就是一系列的数据,当不同的介质之间有数据交互的时候，JAVA就使用流来实现；数据源可以是文件，还可以是数据库，网络甚至是其他的程序)  
->>> #####**输入流**： InputStream，字节输入流，抽象类，FileInputStream(文件输入流)是它的子类; 
->>>> #####**字节输入流**： InputStream，字节输入流，抽象类，FileInputStream(字节输入流)是它的子类; 
->>>>> 创建基于文件的输入流: `File f = new File("e:/JAVAClass/file.txt"); FileInputStream fis = new FileInputStream(f);`以把数据从硬盘，读取到Java的虚拟机(内存)中;
-<br /> 输入流对应的文件必须存在，否则报错；`byte[] arr = new byte[f.length()]; fis.read(arr);`将文件内容byte的形式存入数组;
->>>> #####**字符输入流**： Reader，字符输入流，抽象类，FileReader(字符输入流)是它的子类; 
->>>>> 创建基于文件的输入流: `FileReader fis = new FileReader(f);`以把数据从硬盘，读取到Java的虚拟机(内存)中;
-<br /> 输入流对应的文件必须存在，否则报错；`char[] arr = new char[f.length()]; fis.read(arr);`将文件内容char的形式存入数组;
->>> #####**输出流**：OutputStream，字节输出流，抽象类，FileOutputStream(文件输出流)是它的子类; 
->>>> 创建基于文件的输出流: `FileOutputStream fos = new FileOutputStream(f , true)`; 第二个参数设为true，表示追加内容，否则替换原有内容;
-<br /> 把数据写入到输出流: `fos.write(data)`;  注意:data的类型只可以是 int、short、byte、byte[], getBytes()方法可以将字符串转化为byte[], "\r\n"可用于换行;
-<br /> 输出流对应的文件如果不存在会自动创建一个；
+>>> ##### **字节流**：
+>>>> **字节输入流**： FileInputStream使用：`FileInputStream fis = new FileInputStream(new File("e:/JAVAClass/file.txt"));`;
+<br /> **字节输出流**： FileOutputStream使用：`FileOutputStream fos = new FileOutputStream(new File("e:/JAVAClass/file.txt"));`;
+>>> ##### **基于字节流**（数据流，对象流）：
+ >>>> **数据输入流**： DataInputStream使用：`DataInputStream dis = new DataInputStream(fis);`;
+<br /> **数据输出流**： DataOutputStream使用：`DataOutputStream dos = new DataOutputStream(fos);`;
+<br /> **对象输入流**： ObjectInputStream使用：`ObjectInputStream ois = new ObjectInputStream(fis);`;
+<br /> **对象输出流**： ObjectOutputStream使用：`ObjectOutputStream oos = new ObjectOutputStream(fos);`;
+<br /> **缓冲输入流**： BufferedInputStream使用：`BufferedInputStream ois = new BufferedInputStream(fis);`;
+<br /> **缓冲输出流**： BufferedOutputStream使用：`BufferedOutputStream oos = new BufferedOutputStream(fos);`;
+>>> ##### **字符流**：
+>>>> **字符输入流**： FileReader使用：`FileReader fr = new FileReader(new File("e:/JAVAClass/file.txt"));`;
+<br /> **字符输出流**： FileWriter使用：`FileWriter fw = new FileWriter(new File("e:/JAVAClass/file.txt"));`;
+>>> ##### **基于字符流**（缓冲流）：
+>>>> **缓冲输入流**： BufferedReader使用：`BufferedReader br = new BufferedReader(fr);`;
+<br /> **缓冲输出流**： PrintWriter使用：`PrintWriter pw = new PrintWriter(fw);`，还可以用字节流作为参数(fos);
+>>> ##### 流的特征：
+>>>>    "\r\n"可用于换行;
+<br />  输入流对应的文件必须存在，否则报错；输出流对应的文件如果不存在会自动创建一个；
+<br />  输出流可以写第二个参数，表示是否追加内容，默认为False会替换输出流对应的文件内容；
+<br />  字节输出流(FileOutputStream)的写入类型包括： int、short、byte、byte[], getBytes()方法可以将字符串转化为byte[]；
+<br />  `new InputStreamReader(new FileInputStream(f),Charset.forName("UTF-8");)`,字符流正确读取中文；
+<br />  ObjectInputStream只能读取ObjectOutputStream写入的文件；
+<br />  继承inputStream/outputStream的，为真正意义上的流;继承reader/writer的，为流的处理方式，内部创建了流，解决编码问题; 继承buffer的，
+为流的处理方式，使用外部传入的流，解决IO频繁问题;
 >>> ##### 关闭流
 >>>> 所有的流，无论是输入流还是输出流，使用完毕之后，都应该关闭。 如果不关闭，会产生对资源占用的浪费;
 <br /> 方法一：在try中关闭，如果文件不存在，或者读取的时候出现问题而抛出异常，那么就不会执行这一行关闭流的代码，存在巨大的资源占用隐患;
 <br /> 方法二：在finally中关闭，1. 首先把流的引用声明在try的外面，如果声明在try里面，其作用域无法抵达finally；2. 在finally关闭之前，要先判断
 该引用是否为空；3. 关闭的时候，需要再一次进行try catch处理，标准但是很繁琐；
 <br /> 方法三：把流定义在try()里,try,catch或者finally结束的时候，会自动关闭；这种编写代码的方式叫做 try-with-resources， 这是从JDK7开始支持的技术；
+<br /> ![Java](hero/src/main/webapp/img/Java流关系图.png) 
+<br /> ![Java](hero/src/main/webapp/img/Java流关系图.jpg) 
+
 
 > ### Java UML图:（可见性：+、#、~、-）
 >> 层次：上层是类名，中层是属性名，下层是方法名;

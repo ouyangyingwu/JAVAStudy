@@ -433,7 +433,7 @@ public class Parents {
 	protected static void copyFile(File file, File newfile){
 		try(
 				BufferedReader br = new BufferedReader(new FileReader(file));
-				PrintWriter pw = new PrintWriter(new FileWriter(newfile));
+				PrintWriter pw = new PrintWriter(new FileOutputStream(newfile));
 				)
 		{
 			while(true) {
@@ -449,12 +449,28 @@ public class Parents {
 	
 	/**
 	 * 复制文件夹，包括子文件和文件夹
+	 * 
+	 *	@param	srcFolder 必填参数：String类型，指定的文件夹的路径
+	 * @param	destFolder 必填参数 ：String类型，复制后的文件夹的路径
+	 * 
+	 *	@return 返回值：无
 	*/
 	protected static void copyFolder(String srcFolder, String destFolder){
 		File file = newFile(srcFolder);
     	File newfile = newFile(destFolder);
     	copyFolder(file,newfile);
 	}
+	/**
+	 * 复制文件夹，包括子文件和文件夹
+	 * 
+	 * 使用的系统函数： 
+	 *	<br>listFiles() File对象(对象需要是文件夹)调用，以File[]的形式返回当前文件夹下的文件对象(包括文件夹但是不包括子目录下的文件)，无参数， 返回值为File[]类型
+
+	 *	@param	folder 必填参数 ：File类型，指定的被复制的文件夹对象
+	 * @param	newFolder 必填参数 ：File类型，复制后的文件夹对象
+	 * 
+	 *	@return 返回值：无
+	*/
 	protected static void copyFolder(File folder, File newFolder){
 		File[] fileArr = folder.listFiles();
 		String newUrl = newFolder.getAbsolutePath();
@@ -468,14 +484,29 @@ public class Parents {
 	}
 	
 	/**
-	 *	查找文件内容
+	 *	查找文件夹下的文件内容，包括子目录下的文件
+	 *
+	  * 使用的系统函数： 
+	 * <br>listFiles() File对象(对象需要是文件夹)调用，以File[]的形式返回当前文件夹下的文件对象(包括文件夹但是不包括子目录下的文件)，无参数， 返回值为File[]类型
+	 * <br>isDirectory()	File对象调用	，判断当前对象是否是文件夹，无参数，返回值为boolean类型
+	 * <br>readLine()	BufferedReader对象调用，以字符串的形式返回文件一行内容最后返回null，无参数，返回值为String对象
+	 * <br>getAbsolutePath()	File对象调用，以字符串形式返回当前文件对象的绝对路径，无参数，返回值为String对象
+	 * <br>add()	ArrayList对象调用，将指定内容添加到当前数组中，参数为被添加的内容，无返回值
+	 * <br>toArray()	ArrayList对象调用，将ArrayList数组转化为普通数组，参数为被转化后的对象，指定类型的普通数组
+	 *
+	 * @param	folder 必填参数 ：File类型，指定的被查找的文件夹对象
+	 * @param	search 必填参数 ：String类型，需要查找的字符串
+	 * 
+	 *	@return 返回值：String[] 
 	*/
 	protected static String[] search(File folder, String search) {
+		return search(folder, search, new ArrayList<String>());
+	}
+	private static String[] search(File folder, String search, ArrayList<String> list) {
 		File[] fileArr = folder.listFiles();
-		ArrayList<String> list = new ArrayList<String>();
 		for(File i : fileArr) {
 			if(i.isDirectory())
-				search(i, search);
+				search(i, search, list);
 			else {
 				try(BufferedReader br = new BufferedReader(new FileReader(i));)
 				{
@@ -494,7 +525,8 @@ public class Parents {
 				}
 			}
 		}
-		String[] urlList =list.toArray(new String[list.size()]);
+//		String[] urlList =list.toArray(new String[list.size()]);
+		String[] urlList = list.toArray(new String[] {});
 		return urlList;
 	}
 	
