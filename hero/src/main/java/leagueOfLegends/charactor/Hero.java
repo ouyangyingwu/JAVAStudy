@@ -1,4 +1,6 @@
 package main.java.leagueOfLegends.charactor;
+import main.java.util.Parents;
+
 
 import main.java.leagueOfLegends.property.*;
 import main.java.leagueOfLegends.charactor.heroInterface.Mortal;
@@ -7,11 +9,12 @@ import java.io.Serializable;
 import java.util.Scanner;
 
 //如果你不加 public 或 private 则默认为 friendly(包权限,只能被同文件夹下的的类访问) 权限,类、方法.属性都是;
-public class Hero implements Serializable {
+public class Hero extends Parents implements Serializable {
 	public String name;
 	public float hp;
 	public float armor;				//护甲
 	public int moveSpeed;		//移动速度
+	public int damage;				//攻击力
 	
 	public int killed = 10;			//死亡次数
 	int kill = 0;							//击杀次数
@@ -155,12 +158,12 @@ public class Hero implements Serializable {
     }
 	
 	//构造方法
-	public Hero(String name, float hp, float armor, int moveSpeed) {
+	public Hero(String name, float hp, float armor, int damage) {
 		//this(name, hp);
 		this.name = name;
 		this.hp = hp;
 		this.armor = armor;
-		this.moveSpeed = moveSpeed;
+		this.damage = damage;
 	}
 	//构造函数重载
 	public Hero(String name,float hp) {
@@ -200,19 +203,23 @@ public class Hero implements Serializable {
 	public float getHp() {
 		return hp;
 	}
+	public String getName() {
+		return this.name;
+	}
 	
 	public void recovery(float blood) {
 		hp += blood;
 	}
+	public String toString() {
+        return "Hero [name=" + name + ", hp=" + hp + ", armor=" + armor + "]\r\n";
+    }
 	
-	
-	
-	
-	
-	
-	
-	
-	
+	public boolean matched() {
+		return (this.hp > 100 && this.armor < 50);
+	}
+	public  int compare(Hero h1, Hero h2) {
+		 return h1.hp<=h2.hp ? 1 : -1;
+	}
 	
 	//...
 	//坑队友
@@ -221,8 +228,8 @@ public class Hero implements Serializable {
     }
  
     //获取护甲值
-    float getArmor(){
-        return armor;
+    public float getArmor(){
+        return this.armor;
     }
      
     //增加移动速度
@@ -230,4 +237,22 @@ public class Hero implements Serializable {
         //在原来的基础上增加移动速度
         moveSpeed = moveSpeed + speed;
     }
+    
+    public boolean isDead() {
+        return 0>=hp?true:false;
+    }
+
+	public void attackHero(Hero h, int n) {
+//		try {
+//            //为了表示攻击需要时间，每次攻击暂停1000毫秒
+//            Thread.sleep(n);
+//        } catch (InterruptedException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+		h.hp -= this.damage;
+		System.out.format("%s 正在攻击 %s, %s 的血变成了 %.0f%n",name,h.name,h.name,h.hp);
+		if(h.isDead())
+            System.out.println(h.name +"死了！");
+	}
 }

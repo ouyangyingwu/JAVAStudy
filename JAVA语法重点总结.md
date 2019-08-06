@@ -30,7 +30,7 @@ Java是大小写敏感的;
 *****
 ## 基本语法：（http://www.runoob.com/java/java-basic-syntax.html）
 > ### System.out.println("") 向控制台输出数据;
-> ### System.out.printf("") 向控制台输出数据;
+> ### System.out.printf("") 向控制台输出数据;当对象中存在toString方法时，会打印方法的返回信息;
 > ### 使用System.currentTimeMillis() 获取当前时间(毫秒);
 > ### Java表达式与块：
 >> 以;结尾的一段代码，即为一个表达式,`;`也是一个完整的表达式;
@@ -117,6 +117,10 @@ String sentence2 = String.format(sentenceFormat, name,kill,title);`
 >> **泛型接口**: 例`public interface Generic<E extends Object[,U...],G> extends GenericParent<G>`; 接口可以继承多个接口，规则也类一致；
 <br /> **泛型方法**: 例`public <T extends Number> void test6(T num) {}`;如果泛型类以 T 为参数那么方法中可以不用声明<T>而是直接用类的T；
 <br /> **泛型名规范**: 通常作为第一个泛型类型(T,S,U,V,A,B...), 集合元素 泛型类型(E), 映射-键 泛型类型(K), 映射-值 泛型类型(V), 数值 泛型类型(N);
+<br /> **泛型通配符 extends**: `extends a` 表示这是一个a泛型或者其**子**类泛型;
+<br /> **泛型通配符 super**: `super a` 表示这是一个a泛型或者其**父**类泛型;但是，不能从里面取数据出来,因为其泛型可能是Object,而Object是强转Hero会失败;
+
+
 > ### Java操作符：
 >> #### 算数操作符:`+、-、*、/、%、++、--、=`;
 >> #### 关系操作符:`==、>、>=、<、<=、!=`;
@@ -228,8 +232,6 @@ String sentence2 = String.format(sentenceFormat, name,kill,title);`
 <br /> 在查找数据时，首先找对应的 hashcode ，然后在找值；
 
 
-
-
 > ### Java类与对象：
 >> Java类：类是一个模板，它描述一类对象的行为和状态;
 >> #### Java Object 类：
@@ -258,6 +260,8 @@ String sentence2 = String.format(sentenceFormat, name,kill,title);`
 >>> 初始化方式： 1、声明对象的时候初始化； 2、静态代码块初始化;
 <br /> 对象属性初始化方法：1、声明对象的时候初始化； 2、代码块初始化; 3、构造函数初始化；
 >> ## Java枚举类型：枚举enum是一种特殊的类，枚举可以很方便的定义常量;
+
+
 > ### Java接口与继承：
 >> #### Java super关键字：
 >>> **调用父类带参构造方法**: 在Java中子类构造方法会默认调用父类的 无参的构造方法，有参数的构造方法需要 super(参数) 来调用;
@@ -394,7 +398,6 @@ String sentence2 = String.format(sentenceFormat, name,kill,title);`
 <br /> **实现关系**: **实现关系用带空心三角形的虚线来表示**,用于描述类与接口之间的关系;
 <br /> ![Java](hero/src/main/webapp/img/JavaUML示意图.png) 
 
-
 > ### Java异常处理:（导致程序的正常流程被中断的事件，叫做异常,总体上异常分三类：1错误; 2.运行时异常; 3.可查异常)
 >> #### 异常处理常见手段：(try catch finally throws throw)
 >>> try catch 异常处理: `try{ 正确时运行 }catch(Exception e){ e.printStackTrace(); }`;
@@ -409,6 +412,48 @@ String sentence2 = String.format(sentenceFormat, name,kill,title);`
 <br /> Exception(运行时异常)类可以用try catch捕捉，Exception类的子类有RuntimeException类（不强制要求用try catch捕捉，但是要这么做也可以）;
 <br /> 其他类(可查异常)（这些类被称为checked exception，是必须要用try catch捕捉的类，否则编译器不通过）;
 <br />![Java](hero/src/main/webapp/img/Java异常类.png) 
+
+> ### Java Lambda(请见E:\JAVAStudy\hero\src\main\java\lambda\LambdaTest.java):
+>> #### Lambda 聚合操作：
+>>> Stream 管道(这个Stream和I/O章节的InputStream,OutputStream是不一样的概念): 一系列的聚合操作;
+<br /> 管道源：即数据源，被操作的数据组;
+<br /> 中间操作： 每个中间操作，又会返回一个Stream，比如.filter()又返回一个Stream, 中间操作是“懒”操作，并不会真正进行遍历;
+<br /> 结束操作： 当这个操作执行后，流就被使用“光”了，无法再进行**stream**操作，结束操作不会返回Stream，但是会返回int、float、String、 
+Collection或者像forEach，什么都不返回, 结束操作才进行真正的遍历行为，在遍历的时候，才会去进行中间操作的相关判断;
+<br /> 常用函数：
+<br /> 对元素进行筛选：
+filter() 匹配、distinct() 去除重复(根据equals判断)、sorted() 自然排序、sorted(Comparator<T>) 指定排序、limit(2) 保留2前面两个、skip(2) 忽略前面两个
+<br /> 转换为其他形式的流：mapToDouble() 转换为double的流、map((h)-> h.name+" - "+h.hp) 转换为任意类型的流 
+<br /> 常见结束操作如下：forEach(Hero i : list) 遍历每个元素、toArray() 转换为数组、count() 总数、findFirst() 第一个元素、
+min(Comparator<T>) 取最小的元素、max(Comparator<T>) 取最大的元素;    min、max、findFirst需要get获取其中的值，否则会返回 Optional<Hero>数组;
+sorted、min、max 先要对数组进行排序，在参数处放表达式，例如：`max((h1,h2)->h1.hp-h2.hp)`;
+
+
+> ### Java多线程:
+>> #### 创建多线程的方式( start() 方法会自动调用 run()方法的内容)：
+>>> 1、继承 Thread 类: `KillThread killThread2 = new KillThread(bh,leesin);killThread2.start();`，KillThread类需要继承Thread;
+<br /> 2、实现 Runnable 接口: `Battle battle1 = new Battle(gareen,teemo);new Thread(battle1).start();`，Battle类需要实现Runnable，以及run方法;
+<br /> 3、匿名类的方式(Thread、Runnable): `Thread thread = new Thread() { public void run(){ System.out.print("匿名类"); }}; thread.start();`;
+>> #### 多线程 Thread、Runnable 的区别：
+>>> 1、Thread 需要继承，Runnable 需要实现，Java为单继承多接口，当类已有继承的情况下 Thread 使用不便，Runnable 则不受影响;
+<br /> 2、Thread 不能进行资源共享，Runnable 可以资源共享;
+>> #### 线程优先级特性(MAX_PRIORITY和MIN_PRIORITY分别是最高级10和最低级1,默认为5)：
+>>> 1、**继承**特性，如果线程A启动线程B,那么线程A和B的优先级是**一样的**;
+<br /> 2、**规则**特性，线程会优先级的大小顺序执行,但是**不一定**是优先级较大的先执行完;
+<br /> 3、**随机**特性，线程的优先级和打印顺序无关,不能将这两者相关联,它们的关系具有不确定性和随机性;
+>> #### 线程的类型(用户线程、守护线程)：
+>>> `守护线程` 是指程序运行的时候在后台提供了一种通用服务的线程，比如GC垃圾回收线程，这个线程具有最低的优先级，用于为系统中的其它对象和线程提供服务;
+<br /> 唯一的不同之处: 如果用户线程全部退出离开，只剩下守护线程，虚拟机就会退出; 如果还有至少一个用户线程，那么虚拟机就不会退出;
+<br /> 用户线程 转成 守护线程需要用setDaemon()：`thread.setDaemon(true);`,该方法需要线程启动前执行(即写在thread.start()前面),在守护线程中产生的新线程也是Daemon的
+守护线程尽量不要去访问固有资源，如文件、数据库，因为它会在任何时候甚至在一个操作的中间发生中断;
+>> #### 常见的线程方法：
+>>>    sleep	    当前线程暂停, 例：`Thread t1= new Thread(){public void run(){int seconds =0;while(true){try {
+hread.sleep(1000);} catch (InterruptedException e) {e.printStackTrace();}System.out.printf("已经玩了LOL %d 秒%n", seconds++);}};t1.start();`;
+<br /> join	        加入到当前线程中， 例：`try {t1.join();} catch (InterruptedException e) {e.printStackTrace();}`, 执行完加入的线程再执行当前线程,执行完start再加入;
+<br /> setPriority	线程优先级， 例：`t1.setPriority(Thread.MAX_PRIORITY);t2.setPriority(Thread.MIN_PRIORITY);`;
+<br /> yield	    临时暂停， 例： `Thread t2= new Thread(){public void run(){while(!leesin.isDead()){hread.yield();bh.attackHero(leesin);}}};`;
+<br /> setDaemon	守护线程， 例： `t2.setDaemon(true); t2.start();`; 将普通线程转为守护线程;
+
 
 > ### Java格式转换:
 >> **中文转字节(byte)**: `byte[] by = "转换".getBytes("UTF-8");`;

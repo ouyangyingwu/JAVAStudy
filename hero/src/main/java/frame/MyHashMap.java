@@ -1,8 +1,10 @@
 package main.java.frame;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import main.java.util.Parents;
+import main.java.leagueOfLegends.charactor.Hero;
 
 /*
  * 练习-自定义MyHashMap 
@@ -23,8 +25,10 @@ import main.java.util.Parents;
 比如要查找annie，首先计算"annie"的hashcode是1008，根据1008这个下标，到数组中进行定位，发现1008这个位置有两个英雄，那么就对两个英雄的名字进行逐一比较(equals)，因为此时需要比较的量就已经少很多了，很快也就可以找出目标英雄
 这就是使用hashmap进行查询，非常快原理。
 */
-public class MyHashMap  extends Parents {
-	LinkedList<Entry>[] entrys;
+public class MyHashMap<T>  extends Parents {
+	@SuppressWarnings("unchecked")
+	LinkedList<Entry>[] entrys=new LinkedList[1999];
+
 	/*
 	 * 	练习-自定义字符串的hashcode
 	*/
@@ -38,33 +42,33 @@ public class MyHashMap  extends Parents {
 		return code;
 	}
 	
-	public void put(String key,Object value){
+	public void put(String key,T value){
 		int index = hashcode(key);
-		prints(index +"  "+ key +"   "+ value);
-		prints(entrys[index]);
-//        if (null == entrys[index])
-//            entrys[index] = new LinkedList<Entry>();
-//        else {
-//            // 如果已有该key，覆盖其原对应元素并退出
-//            for (Entry each : entrys[index]) {
-//                if (each.key.equals(key)) {
-//                    each.value = value;
-//                    return;
-//                }
-//            }
-//            entrys[index].addLast(new Entry(key, value));
-//        }
-//		hashcode(key);
+		if (null == entrys[index]) {
+			entrys[index] = new LinkedList<Entry>();
+			entrys[index].addLast(new Entry(key, value));
+		} else {
+			// 如果已有该key，覆盖其原对应元素并退出
+            for (Entry each : entrys[index]) {
+            	if (each.key.equals(key)) {
+            		each.value = value;
+                    return;
+                }
+            }
+            entrys[index].addLast(new Entry(key, value));
+        }
+		hashcode(key);
 	}
 	
-	public Object get(String key){
+	@SuppressWarnings("unchecked")
+	public T get(String key){
 		int index = hashcode(key);
-		Object value = null;
+		T value = null;
         if (null == entrys[index])
             return value;
         for (Entry e : entrys[index]) {
             if (key.equals(e.key)) {
-                value = e.value;
+                value = (T)e.value;
                 break;
             }
         }
@@ -72,6 +76,43 @@ public class MyHashMap  extends Parents {
 	}
 	
 	public static void main(String[] age) {
+		long c1 = System.currentTimeMillis();
+		MyHashMap<Hero> map = new MyHashMap<>();
+		for(int i=1; i<100000; i++) {
+			int name = (int)(Math.random()*10000);
+			map.put(String.valueOf(name), new Hero("盖伦"+name, 615f, 14f, 300));
+		}
+		long c2 = System.currentTimeMillis();
+		
+		long c3 = System.currentTimeMillis();
+		Hero h = map.get("5555");
+		long c4 = System.currentTimeMillis();
+		
+		 long d1 = System.currentTimeMillis();
+		ArrayList<Hero> list = new ArrayList<>();
+		for(int i=1; i<100000; i++) {
+			int name = (int)(Math.random()*10000);
+			list.add(new Hero("盖伦"+name, 615f, 14f, 300));
+		}
+		 long d2 = System.currentTimeMillis();
+		
+        long d3 = System.currentTimeMillis();
+        Hero m = null;
+        int count = 0;
+        for (int i = 0; i < list.size();i++ ) {
+            if (list.get(i).name.equals("盖伦5555")) {
+            	m = list.get(i);
+            	count++;
+            }
+        }
+        long d4 = System.currentTimeMillis();
+		
+		prints("map添加数据用时："+(c2-c1));
+		prints("map查找数据用时："+(c4-c3)+" 内容为："+h.name);
+		
+		prints("list添加数据用时："+(d2-d1));
+		prints("list查找数据用时："+(d4-d3)+" 内容为："+m.name+" 有 "+count+" 个");
+
 		prints("test");
 		MyHashMap mhm = new MyHashMap();
 		mhm.put("adc", "测试");
