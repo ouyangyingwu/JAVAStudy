@@ -168,6 +168,29 @@ public class Parents {
 	}
 
 	/**
+	 * 获取随机字符串
+	*/
+	protected static String randomString(int length) {
+        String pool = "";
+        for (byte i = '0'; i <= '9'; i++) {
+            pool += (char) i;
+        }
+        for (byte i = 'a'; i <= 'z'; i++) {
+            pool += (char) i;
+        }
+        for (byte i = 'A'; i <= 'Z'; i++) {
+            pool += (char) i;
+        }
+        char cs[] = new char[length];
+        for (int i = 0; i < cs.length; i++) {
+            int index = (int) (Math.random() * pool.length());
+            cs[i] = pool.charAt(index);
+        }
+        String result = new String(cs);
+        return result;
+    }
+
+	/**
 	 * 获取一个文件夹下的所有--文件---，包括子目录下的文件 利方法用重载来为递归添加一个外部对象
 	 *
 	 * <br>使用的系统函数：

@@ -300,7 +300,9 @@ String sentence2 = String.format(sentenceFormat, name,kill,title);`
 >>> 内部类作为外部类的一个特殊的成员来看待（与属性、方法并列，所以可以在内部类中访问private属性、方法）；因此它有类成员的封闭等级：private ,protected,默认(friendly),public 和类成员的修饰符: static,final,abstract；
 <br /> **非静态内部类**: 语法: `new 外部类().new 内部类()`；是可以直接访问外部类的private实例属性和方法；
 <br /> **静态内部类(同样用static修饰)**: 语法: `new 外部类.静态内部类();`；静态内部类的实例化 不需要一个外部类的实例为基础，可以直接实例化；静态内部类里面不可以访问外部类的实例属性和方法（可以访问私有**类/静态**属性方法）；
-<br /> **匿名内部类**: 匿名内部类是在抽象类和接口的基础之上发展起来的(在可实例化的类中` AD a = new AD(){public void physicAttack(ADAPHero temp) {System.out.println("匿名内部类.");};a.physicAttack(null);`)。匿名内部类如果继承自接口,必须实现指定接口的方法,且无参数 。匿名内部类如果继承自类,参数必须按父类的构造函数的参数传递；
+<br /> **匿名内部类**: 匿名内部类是在抽象类和接口的基础之上发展起来的(在可实例化的类中` AD a = new AD(){public void physicAttack(ADAPHero temp) 
+{System.out.println("匿名内部类.");};a.physicAttack(null);`)。匿名内部类如果继承自接口,必须实现指定接口的方法,且无参数 。匿名内部类如果继承自类,
+参数必须按父类的构造函数的参数传递,可以用代码块({})作为构造函数；
 <br /> **本地内部类(局部类，类似局部变量)**: 直接声明在代码块里面，可以是主方法，for循环里等等地方；
 > ### Scanner类:(获取用户输入的的内容)
 >> `import java.util.Scanner;` 导入类;
@@ -441,11 +443,15 @@ sorted、min、max 先要对数组进行排序，在参数处放表达式，例�
 >>> 1、**继承**特性，如果线程A启动线程B,那么线程A和B的优先级是**一样的**;
 <br /> 2、**规则**特性，线程会优先级的大小顺序执行,但是**不一定**是优先级较大的先执行完;
 <br /> 3、**随机**特性，线程的优先级和打印顺序无关,不能将这两者相关联,它们的关系具有不确定性和随机性;
+<br /> 4、方法需要线程启动后执行(即写在thread.start()后面);
 >> #### 线程的类型(用户线程、守护线程)：
 >>> `守护线程` 是指程序运行的时候在后台提供了一种通用服务的线程，比如GC垃圾回收线程，这个线程具有最低的优先级，用于为系统中的其它对象和线程提供服务;
 <br /> 唯一的不同之处: 如果用户线程全部退出离开，只剩下守护线程，虚拟机就会退出; 如果还有至少一个用户线程，那么虚拟机就不会退出;
 <br /> 用户线程 转成 守护线程需要用setDaemon()：`thread.setDaemon(true);`,该方法需要线程启动前执行(即写在thread.start()前面),在守护线程中产生的新线程也是Daemon的
 守护线程尽量不要去访问固有资源，如文件、数据库，因为它会在任何时候甚至在一个操作的中间发生中断;
+<br /> Runnable 转化为守护线程要用 Thread ，例：`Thread t = new Thread(runnable); t.setDaemon(true)`;
+>> #### 线程同步（多个线程同时修改一个数据的时候，导致的问题）：
+>>> **解决思路**：总体解决思路是： 在增加线程访问hp期间，其他线程不可以访问hp;
 >> #### 常见的线程方法：
 >>>    sleep	    当前线程暂停, 例：`Thread t1= new Thread(){public void run(){int seconds =0;while(true){try {
 hread.sleep(1000);} catch (InterruptedException e) {e.printStackTrace();}System.out.printf("已经玩了LOL %d 秒%n", seconds++);}};t1.start();`;

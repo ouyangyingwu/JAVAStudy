@@ -12,6 +12,7 @@ import java.util.Scanner;
 public class Hero extends Parents implements Serializable {
 	public String name;
 	public float hp;
+	public float currentHp;		//当前血量
 	public float armor;				//护甲
 	public int moveSpeed;		//移动速度
 	public int damage;				//攻击力
@@ -169,6 +170,7 @@ public class Hero extends Parents implements Serializable {
 	public Hero(String name,float hp) {
 		this.name = name;
         this.hp = hp;
+        this.currentHp = hp;
 		System.out.println(name+"  的对血量是: "+ hp);
 	}
 	
@@ -239,7 +241,7 @@ public class Hero extends Parents implements Serializable {
     }
     
     public boolean isDead() {
-        return 0>=hp?true:false;
+        return 0>=this.currentHp?true:false;
     }
 
 	public void attackHero(Hero h, int n) {
@@ -250,9 +252,31 @@ public class Hero extends Parents implements Serializable {
 //            // TODO Auto-generated catch block
 //            e.printStackTrace();
 //        }
-		h.hp -= this.damage;
-		System.out.format("%s 正在攻击 %s, %s 的血变成了 %.0f%n",name,h.name,h.name,h.hp);
+		h.currentHp -= this.damage;
+		System.out.format("%s 正在攻击 %s, %s 的血变成了 %.0f%n",name,h.name,h.name,h.currentHp);
 		if(h.isDead())
             System.out.println(h.name +"死了！");
 	}
+
+	// 自动回血
+	public void recover() {
+		this.currentHp += 1;
+		if(this.currentHp > this.hp);
+			//this.currentHp = this.hp;
+	}
+	// 泉水回血
+	public void recovers() {
+		this.currentHp += 100;
+		if(this.currentHp > this.hp);
+			//this.currentHp = this.hp;
+	}
+	// 掉血
+    public void hurt(){
+    	//prints("攻击");
+    	this.currentHp -= 1;
+    	if(this.currentHp < 0) {
+    		//this.currentHp = 0;
+    		System.out.printf("%s 死了", this.name);
+    	}
+    }
 }

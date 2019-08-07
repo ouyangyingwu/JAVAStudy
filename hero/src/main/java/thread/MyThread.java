@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import main.java.util.Parents;
 import main.java.leagueOfLegends.charactor.Hero;
@@ -26,11 +28,11 @@ public class MyThread extends Parents{
         Hero leesin = new Hero("盲僧",455,40,65);
 
 //    	Thread 接口实现多线程
-//		thread(gareen , teemo, bh, leesin);
+		thread(gareen , teemo, bh, leesin);
 //		Runnable 接口实现多线程
 //		runnable(gareen , teemo, bh, leesin);
 //		匿名类 多线程
-		anonymity(gareen , teemo, bh, leesin);
+//		anonymity(gareen , teemo, bh, leesin);
 
 //		多线程搜索文件内容
 //     long time1 = System.currentTimeMillis();
@@ -39,7 +41,10 @@ public class MyThread extends Parents{
 //		prints("多线程用时为："+(time2-time1));
 		
 //		英雄技能充能
-		work1();
+//		work1();
+		
+//		穷举法破解密码
+		work2();
 	}
 	
 	//	Thread 接口实现多线程
@@ -154,23 +159,123 @@ public class MyThread extends Parents{
 	 * 借助本章节学习到的知识点，实现这个效果
 	*/
 	static void work1() {
-		int num = 3;
-		num = attack(num);
+		Thread t = new Thread() {
+			public void run() {
+				while(true) {
+					for(int i = 1; i <= 3; i++) {
+						prints("波动拳第 "+i+" 发");
+						if(i < 3) {
+							try {
+								Thread.sleep(1000);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+					}
+					prints("开始为时 5 秒的充能");
+					try {
+						Thread.sleep(5000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}					
+				}
+			}
+		};
+		t.start();
 	}
-	private static int attack(int num) {
-		if(num == 0) prints("充能中");
-		num--;
-		prints("使用了一次攻击，还剩 "+num);
-		return num;
-	}
-	private static int  charge() {
-		Thread temp = new Thread();
-		try {
-			temp.sleep(5000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return 3;
+
+	/*
+	 * 练习-破解密码
+	 * 1. 生成一个长度是3的随机字符串，把这个字符串当作 密码
+	 * 
+	 * 2. 创建一个破解线程，使用穷举法，匹配这个密码 
+	 * 
+	 * 3. 创建一个日志线程，打印都用过哪些字符串去匹配，这个日志线程设计为守护线程
+	 * 
+	 * 提示： 破解线程把穷举法生成的可能密码放在一个容器中，日志线程不断的从这个容器中拿出可能密码，并打印出来。 
+	 * 如果发现容器是空的，就休息1秒，如果发现不是空的，就不停的取出，并打印。
+	 * 
+	 * 	穷举法：
+	*/
+	public static boolean found = false;
+	static void work2(){
+		String password = randomString(3);//"009";
+		prints("密码是:" + password);		
+		List<String> passwords = new ArrayList<>();
+		// 用户线程
+		Runnable pass = new Runnable() {
+			private boolean found = false;
+		    private String password1;
+			{
+				this.password1 = password;
+			}
+			public void run(){
+		        char[] guessPassword = new char[password1.length()];
+		        generatePassword(guessPassword, password1);
+		    }
+			public  void generatePassword(char[] guessPassword, String password) {
+		        generatePassword(guessPassword, 0, password);
+		    }
+		 
+		    public  void generatePassword(char[] guessPassword, int index, String password) {
+		        if (found)
+		            return;
+		        for (short i = '0'; i <= 'z'; i++) {
+		            char c = (char) i;
+		            if (!Character.isLetterOrDigit(c))
+		                continue;
+		            guessPassword[index] = c;
+		            if (index != guessPassword.length - 1) {
+		                generatePassword(guessPassword, index + 1, password);
+		            } else {
+		                String guess = new String(guessPassword);
+		                //穷举每次生成的密码，都放进集合中
+		                passwords.add(guess);
+		                if (guess.equals(password)) {
+		                	try {
+								Thread.sleep(1000);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+		                    System.out.println("找到了，密码是 " + guess);
+		                    found = true;
+		                    return;
+		                }
+		            }
+		        }
+		    }
+		};
+		// 守护线程，当 用户线程 结束后自动结束
+		Runnable guard = new Runnable() {
+		   public void run(){
+		        while(true){
+		            try {
+	                    Thread.sleep(50);
+	                } catch (InterruptedException e) {
+	                    // TODO Auto-generated catch block
+	                    e.printStackTrace();
+	                }
+		            // 防止 passwords 没有值
+		            while(passwords.isEmpty()) {
+			            try {
+		                    Thread.sleep(50);
+		                } catch (InterruptedException e) {
+		                    // TODO Auto-generated catch block
+		                    e.printStackTrace();
+		                }
+		            }
+		            String password = passwords.remove(0);
+		           	System.out.println("穷举法本次生成的密码是：" +password);	            	
+		        }
+		    }
+		};
+		
+		new Thread(pass).start();
+		Thread t= new Thread(guard);
+		t.setDaemon(true);
+		t.start();
 	}
 }
