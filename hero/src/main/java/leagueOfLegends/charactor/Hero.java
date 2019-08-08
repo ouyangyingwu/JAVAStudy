@@ -163,6 +163,7 @@ public class Hero extends Parents implements Serializable {
 		//this(name, hp);
 		this.name = name;
 		this.hp = hp;
+		this.currentHp = hp;
 		this.armor = armor;
 		this.damage = damage;
 	}
@@ -245,13 +246,13 @@ public class Hero extends Parents implements Serializable {
     }
 
 	public void attackHero(Hero h, int n) {
-//		try {
-//            //为了表示攻击需要时间，每次攻击暂停1000毫秒
-//            Thread.sleep(n);
-//        } catch (InterruptedException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        }
+		try {
+            //为了表示攻击需要时间，每次攻击暂停1000毫秒
+            Thread.sleep(n);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 		h.currentHp -= this.damage;
 		System.out.format("%s 正在攻击 %s, %s 的血变成了 %.0f%n",name,h.name,h.name,h.currentHp);
 		if(h.isDead())
@@ -259,21 +260,37 @@ public class Hero extends Parents implements Serializable {
 	}
 
 	// 自动回血
-	public void recover() {
+	public synchronized void recover() {
 		this.currentHp += 1;
-		if(this.currentHp > this.hp);
-			//this.currentHp = this.hp;
+		// 通知那些等待在this对象上的线程，可以醒过来了，如第20行，等待着的减血线程，苏醒过来
+		if(this.currentHp >= this.hp) {
+			this.currentHp = this.hp;
+			this.notify();
+		}
+		System.out.printf("%s 回血1点,增加血后，%s的血量是%.0f%n", name, name, currentHp);
 	}
 	// 泉水回血
-	public void recovers() {
+	public synchronized void recovers() {
 		this.currentHp += 100;
+		System.out.printf("%s 回血1点,增加血后，%s的血量是%.0f%n", name, name, currentHp);
+        // 通知那些等待在this对象上的线程，可以醒过来了，如第20行，等待着的减血线程，苏醒过来
+        this.notify();
 		if(this.currentHp > this.hp);
 			//this.currentHp = this.hp;
 	}
 	// 掉血
-    public void hurt(){
-    	//prints("攻击");
+    public synchronized void hurt(){
+    	if (currentHp == 1) {
+            try {
+                // 让占有this的减血线程，暂时释放对this的占有，并等待
+                this.wait();
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
     	this.currentHp -= 1;
+    	System.out.printf("%s 减血1点,减少血后，%s的血量是%.0f%n", name, name, currentHp);
     	if(this.currentHp < 0) {
     		//this.currentHp = 0;
     		System.out.printf("%s 死了", this.name);

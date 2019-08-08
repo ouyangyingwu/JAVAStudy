@@ -450,8 +450,33 @@ sorted、min、max 先要对数组进行排序，在参数处放表达式，例�
 <br /> 用户线程 转成 守护线程需要用setDaemon()：`thread.setDaemon(true);`,该方法需要线程启动前执行(即写在thread.start()前面),在守护线程中产生的新线程也是Daemon的
 守护线程尽量不要去访问固有资源，如文件、数据库，因为它会在任何时候甚至在一个操作的中间发生中断;
 <br /> Runnable 转化为守护线程要用 Thread ，例：`Thread t = new Thread(runnable); t.setDaemon(true)`;
->> #### 线程同步（多个线程同时修改一个数据的时候，导致的问题）：
->>> **解决思路**：总体解决思路是： 在增加线程访问hp期间，其他线程不可以访问hp;
+>> #### 线程同步（多个线程同时修改一个数据的时候，导致的问题，https://github.com/ouyangyingwu/JAVAStudy/blob/master/hero/src/main/java/thread/MyThreadSynchronize.java）：
+>>> **解决思路**：总体解决思路是： 在增加线程访问hp期间，其他线程不可以访问hp，synchronized;
+<br /> 方法一: 所有需要修改hp的地方，有要建立在占有someObject的基础上`final Object someObject = new Object(); synchronized (someObject) {进行的线程操作}`;
+<br /> 方法二: 以被操作的对象做为同步对象，`synchronized (gareen) {进行的线程操作}`;
+<br /> 方法三: 以被操作的对象内部处理，`public void hurt(){//使用this作为同步对象synchronized (this) {currentHp -= 1;}}`;
+<br /> 方法四: 将 synchronized 作为修饰符添加在方法上，`public void attackHero(Hero h) {}`;
+>> #### 线程安全的类：
+>>> 如果一个类，其方法都是有synchronized修饰的(构造方法除外)，那么该类就叫做线程安全的类;
+<br /> 同一时间，只有一个线程能够进入 这种类的一个实例 的去修改数据，进而保证了这个实例中的数据的安全(不会同时被多线程修改而变成脏数据).例如：StringBuffer类;
+>> #### 把非线程安全的集合转换为线程安全：
+>>> ArrayList是非线程安全的，换句话说，多个线程可以同时进入一个ArrayList对象的add方法,借助`Collections.synchronizedList(list)`，可以把ArrayList转换为线程安全的List；
+>> #### 线程死锁：
+>>> **产生死锁的条件：**
+>>>> 1、至少有一个任务它必须持有一个资源且正在等待获取一个当前被别的任务持有的资源;
+<br /> 2、互斥条件。任务使用的资源至少一个是不能共享的;
+<br /> 3、资源不能被任务抢占。任务必须把资源释放当做普通事件;
+<br /> 4、必须有等待循环;
+>>> 要发生死锁，上述条件必须全部都满足；所以要防止死锁的话，只需要破坏其中的一个即可;
+<br /> ![Java](hero/src/main/webapp/img/Java线程死锁示意图.png) 
+>> #### 线程交互：
+>>> this.wait()表示 让占有this的线程等待，并临时释放占有;
+<br /> this.notify() 表示通知那些等待在this的线程，可以苏醒过来了;
+<br /> 注意，wait、notify 并不是Thread线程上的方法，它们是Object上的方法, 因为所有的Object都可以被用来作为同步对象，所以准确的讲，wait和notify是同步对象上的方法;
+<br /> wait()的意思是： 让占用了这个同步对象的线程，临时释放当前的占用，并且等待。 所以调用wait是有前提条件的，一定是在synchronized块里，否则就会出错;
+<br /> notify() 的意思是，通知一个等待在这个同步对象上的线程，你可以苏醒过来了，有机会重新占用当前对象了;
+<br /> notifyAll() 的意思是，通知所有的等待在这个同步对象上的线程，你们可以苏醒过来了，有机会重新占用当前对象了;
+
 >> #### 常见的线程方法：
 >>>    sleep	    当前线程暂停, 例：`Thread t1= new Thread(){public void run(){int seconds =0;while(true){try {
 hread.sleep(1000);} catch (InterruptedException e) {e.printStackTrace();}System.out.printf("已经玩了LOL %d 秒%n", seconds++);}};t1.start();`;
